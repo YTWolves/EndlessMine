@@ -24,7 +24,7 @@ E-mail: keyto1995@outlook.com
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-        <title>index</title>
+        <title>gamePage</title>
         <!-- Bootstrap -->
         <link href="../static/bootstrap/css/bootstrap.min.css" th:href="@{bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 
@@ -36,10 +36,9 @@ E-mail: keyto1995@outlook.com
         <![endif]-->
     </head>
     <body>
+        <button id="ca">click here</button>
         <div>TODO write content</div>
-        <button id="c1">click here</button>
-        <a href="loginPage">loginPage</a><br/>
-        <a href="gamePage">gamePage</a>
+        <button id="chunk"> get a chunk </button>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -47,18 +46,46 @@ E-mail: keyto1995@outlook.com
         <script src="../static/jquery-3.2.1.min.js" th:src="@{jquery-3.2.1.min.js}"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{bootstrap/js/bootstrap.min.js}"></script>
+        <script src="../static/script/EndlessMineObj.js" th:src="@{script/EndlessMineObj.js}"></script>
         <script type="text/javascript">
-            $("button").click(function () {
-                $.post("demo_test_post",
+
+
+
+            $("#ca").click(function () {
+                $.post("demo_test_show",
                         {
-                            name: "Donald Duck",
-                            city: "Duckburg"
+                            chunkPointX: 1,
+                            chunkPointY: 2,
+                            blockIndex: 3,
+                            mouseButton: "PRIMARY"
                         },
                         function (data, status) {
+                            for (var o in data) {
+                                var pic = new Block(data[o]).blockInfo.getPic();
+                                console.log("Pic:" + pic);
+                            }
                             console.log(data);
-                            alert("Data: " + data + "\nStatus: " + status);
+                        });
+            });
+
+            $("#chunk").click(function () {
+                $.getJSON("demo_test_show_chunk",
+                        {
+                            chunkPointX: 1,
+                            chunkPointY: 2
+                        },
+                        function (data, status) {
+                            for (var o in data) {
+                                var pic = new BlockInfo(data[o]).getPic();
+                                console.log("Pic:" + o + "->" + pic);
+                            }
+//                            alert("Data: " + data + "\nStatus: " + status);
                         });
             });
         </script>
     </body>
 </html>
+
+
+
+

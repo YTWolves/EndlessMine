@@ -34,7 +34,7 @@ import keyto.endlessmine.webserver.eneity.RequestA;
 import keyto.endlessmine.webserver.eneity.RequestDoActive;
 import keyto.endlessmine.webserver.eneity.RequestGetChunk;
 import keyto.endlessmine.webserver.eneity.ResponseA;
-import keyto.endlessmine.webserver.eneity.User;
+import keyto.endlessmine.webserver.massage.MsgDoLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -74,7 +74,7 @@ public class Application {
     }
 
     @RequestMapping("do_login")
-    String login(User user, HttpSession session) {
+    String login(MsgDoLogin user, HttpSession session) {
         session.setAttribute("user", user);
         System.out.println("do_login");
         System.out.println(user);
@@ -91,7 +91,7 @@ public class Application {
     List<IBlock> demo_test_show(RequestDoActive requestDoActive) {
         System.out.println("demo_test_show");
         System.out.println(requestDoActive);
-//        Object attribute = (User)session.getAttribute("user");
+//        Object attribute = (MsgDoLogin)session.getAttribute("user");
         ChunkPoint chunkPoint = new ChunkPoint(requestDoActive.getChunkPointX(), requestDoActive.getChunkPointY());
         BlockPoint blockPoint = new BlockPoint(chunkPoint, requestDoActive.getBlockIndex());
         MouseButton mouseButton = MouseButton.valueOf(requestDoActive.getMouseButton());
