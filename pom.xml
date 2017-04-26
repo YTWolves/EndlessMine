@@ -12,6 +12,7 @@
         <module>EndlessMine-Common</module>
         <module>EndlessMine-GameServer</module>
         <module>EndlessMine-WebServer</module>
+        <module>EndlessMine-DBService</module>
     </modules>
     
     <properties>

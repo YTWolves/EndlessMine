@@ -30,6 +30,11 @@
             <artifactId>EndlessMine-Common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>EndlessMine-DBService</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     
     <build>

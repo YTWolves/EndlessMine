@@ -26,12 +26,14 @@ import keyto.endlessmine.common.block.IBlockInfo;
 import keyto.endlessmine.common.coordinate_system.impl.BlockPoint;
 import keyto.endlessmine.common.coordinate_system.impl.ChunkPoint;
 import keyto.endlessmine.common.mouse.MouseButton;
+import keyto.endlessmine.dbservice.service.UserInfoService;
 import keyto.endlessmine.gameserver.manager.BlockManager;
 import keyto.endlessmine.webserver.eneity.RequestA;
 import keyto.endlessmine.webserver.eneity.RequestDoActive;
 import keyto.endlessmine.webserver.eneity.RequestGetChunk;
 import keyto.endlessmine.webserver.eneity.ResponseA;
 import keyto.endlessmine.webserver.eneity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -46,10 +48,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @SpringBootApplication
 public class Application {
 
+    @Autowired
+    UserInfoService userInfoService;
+
     BlockManager blockManager = new BlockManager();
 
     @RequestMapping({"", "/"})
     String home() {
+        userInfoService.save("kkkk", "aa@as", "qqq");
         return "index";
     }
 
