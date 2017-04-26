@@ -18,6 +18,7 @@
  */
 package keyto.endlessmine.webserver;
 
+import com.google.gson.Gson;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -26,7 +27,8 @@ import keyto.endlessmine.common.block.IBlockInfo;
 import keyto.endlessmine.common.coordinate_system.impl.BlockPoint;
 import keyto.endlessmine.common.coordinate_system.impl.ChunkPoint;
 import keyto.endlessmine.common.mouse.MouseButton;
-import keyto.endlessmine.dbservice.service.UserInfoService;
+import keyto.endlessmine.dbservice.entity.Player;
+import keyto.endlessmine.dbservice.service.PlayerService;
 import keyto.endlessmine.gameserver.manager.BlockManager;
 import keyto.endlessmine.webserver.eneity.RequestA;
 import keyto.endlessmine.webserver.eneity.RequestDoActive;
@@ -49,14 +51,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class Application {
 
     @Autowired
-    UserInfoService userInfoService;
+    PlayerService playerService;
 
     BlockManager blockManager = new BlockManager();
 
     @RequestMapping({"", "/"})
     String home() {
-        userInfoService.save("kkkk", "aa@as", "qqq");
+        playerService.save("tttttttttttt", "aa@ys", "qfqq",1323L);
         return "index";
+    }
+    
+    @RequestMapping("tt")
+    @ResponseBody
+    String tt(){
+        List<Player> findByName = playerService.findByName("kkkk");
+        return new Gson().toJson(findByName);
     }
 
     @RequestMapping("loginPage")
