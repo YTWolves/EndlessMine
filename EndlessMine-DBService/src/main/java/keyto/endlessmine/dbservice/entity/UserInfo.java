@@ -19,13 +19,17 @@
 package keyto.endlessmine.dbservice.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -43,6 +47,8 @@ public class UserInfo implements Serializable {
     private String name;
     private String email;
     private String password;
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private List<SysRole> roles;
 
     public UserInfo() {
     }
@@ -104,13 +110,28 @@ public class UserInfo implements Serializable {
         this.password = password;
     }
 
+    /**
+     * @return the roles
+     */
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param roles the roles to set
+     */
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
         hash = 59 * hash + Objects.hashCode(this.id);
         hash = 59 * hash + Objects.hashCode(this.name);
         hash = 59 * hash + Objects.hashCode(this.email);
         hash = 59 * hash + Objects.hashCode(this.password);
+        hash = 59 * hash + Objects.hashCode(this.roles);
         return hash;
     }
 
@@ -124,6 +145,7 @@ public class UserInfo implements Serializable {
         if (!Objects.equals(this.email, other.email)) return false;
         if (!Objects.equals(this.password, other.password)) return false;
         if (!Objects.equals(this.id, other.id)) return false;
+        if (!Objects.equals(this.roles, other.roles)) return false;
         return true;
     }
 
@@ -134,6 +156,7 @@ public class UserInfo implements Serializable {
                 + ",name=" + name
                 + ",email=" + email
                 + ",password=" + password
+                + ",roles=" + roles
                 + " ]";
     }
 

@@ -57,14 +57,14 @@ public class Application {
 
     @RequestMapping({"", "/"})
     String home() {
-        playerService.save("tttttttttttt", "aa@ys", "qfqq",1323L);
+        playerService.save("uuu", "aa@ys", "qfqq",1323L);
         return "index";
     }
     
     @RequestMapping("tt")
     @ResponseBody
     String tt(){
-        List<Player> findByName = playerService.findByName("kkkk");
+        List<Player> findByName = playerService.findByName("tttttttttttt");
         return new Gson().toJson(findByName);
     }
 
