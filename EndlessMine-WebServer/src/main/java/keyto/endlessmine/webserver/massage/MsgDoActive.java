@@ -16,17 +16,18 @@
  *
  * E-mail: keyto1995@outlook.com
  */
-package keyto.endlessmine.webserver.eneity;
+package keyto.endlessmine.webserver.massage;
 
 /**
  *
  * @author Keyto
  */
-public class RequestDoActive {
+public class MsgDoActive {
 
     private int chunkPointX;
     private int chunkPointY;
-    private int blockIndex;
+    private int blockX;
+    private int blockY;
     private String mouseButton;
 
     /**
@@ -58,17 +59,31 @@ public class RequestDoActive {
     }
 
     /**
-     * @return the blockIndex
+     * @return the blockX
      */
-    public int getBlockIndex() {
-        return blockIndex;
+    public int getBlockX() {
+        return blockX;
     }
 
     /**
-     * @param blockIndex the blockIndex to set
+     * @param blockX the blockX to set
      */
-    public void setBlockIndex(int blockIndex) {
-        this.blockIndex = blockIndex;
+    public void setBlockX(int blockX) {
+        this.blockX = blockX;
+    }
+
+    /**
+     * @return the blockY
+     */
+    public int getBlockY() {
+        return blockY;
+    }
+
+    /**
+     * @param blockY the blockY to set
+     */
+    public void setBlockY(int blockY) {
+        this.blockY = blockY;
     }
 
     /**
@@ -88,7 +103,12 @@ public class RequestDoActive {
     @Override
     public String toString() {
         return super.toString()
-                + " [ " + chunkPointX + "," + chunkPointY + "," + blockIndex + "," + mouseButton + " ]";
+                + " [ chunkPointX=" + chunkPointX 
+                + ",chunkPointY=" + chunkPointY 
+                + ",blockX=" + blockX 
+                + ",blockY=" + blockY 
+                + "," + mouseButton 
+                + " ]";
     }
 
 }

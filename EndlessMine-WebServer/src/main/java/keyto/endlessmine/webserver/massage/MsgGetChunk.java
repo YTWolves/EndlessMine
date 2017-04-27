@@ -16,13 +16,13 @@
  *
  * E-mail: keyto1995@outlook.com
  */
-package keyto.endlessmine.webserver.eneity;
+package keyto.endlessmine.webserver.massage;
 
 /**
  *
  * @author Keyto
  */
-public class RequestGetChunk {
+public class MsgGetChunk {
     private int chunkPointX;
     private int chunkPointY;
 

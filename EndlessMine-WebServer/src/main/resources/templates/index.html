@@ -37,7 +37,6 @@ E-mail: keyto1995@outlook.com
     </head>
     <body>
         <div>TODO write content</div>
-        <button id="c1">click here</button>
         <a href="login">loginPage</a><br/>
         <a href="signUp">signUpPage</a><br/>
         <a href="game">gamePage</a>
@@ -49,17 +48,7 @@ E-mail: keyto1995@outlook.com
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{bootstrap/js/bootstrap.min.js}"></script>
         <script type="text/javascript">
-            $("button").click(function () {
-                $.post("demo_test_post",
-                        {
-                            name: "Donald Duck",
-                            city: "Duckburg"
-                        },
-                        function (data, status) {
-                            console.log(data);
-                            alert("Data: " + data + "\nStatus: " + status);
-                        });
-            });
+
         </script>
     </body>
 </html>

@@ -25,8 +25,8 @@ import keyto.endlessmine.common.coordinate_system.impl.BlockPoint;
 import keyto.endlessmine.common.coordinate_system.impl.ChunkPoint;
 import keyto.endlessmine.common.mouse.MouseButton;
 import keyto.endlessmine.gameserver.manager.BlockManager;
-import keyto.endlessmine.webserver.eneity.RequestDoActive;
-import keyto.endlessmine.webserver.eneity.RequestGetChunk;
+import keyto.endlessmine.webserver.massage.MsgGetChunk;
+import keyto.endlessmine.webserver.massage.MsgDoActive;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,22 +43,22 @@ public class GameController {
 
     @RequestMapping("/demo_test_show")
     @ResponseBody
-    List<IBlock> demo_test_show(RequestDoActive requestDoActive) {
-        System.out.println("/demo_test_show");
-        System.out.println(requestDoActive);
+    List<IBlock> demo_test_show(MsgDoActive msgDoActive) {
+        System.out.println("/game/demo_test_show");
+        System.out.println(msgDoActive);
 //        Object attribute = (MsgDoLogin)session.getAttribute("user");
-        ChunkPoint chunkPoint = new ChunkPoint(requestDoActive.getChunkPointX(), requestDoActive.getChunkPointY());
-        BlockPoint blockPoint = new BlockPoint(chunkPoint, requestDoActive.getBlockIndex());
-        MouseButton mouseButton = MouseButton.valueOf(requestDoActive.getMouseButton());
+        ChunkPoint chunkPoint = new ChunkPoint(msgDoActive.getChunkPointX(), msgDoActive.getChunkPointY());
+        BlockPoint blockPoint = new BlockPoint(chunkPoint, msgDoActive.getBlockX(), msgDoActive.getBlockY());
+        MouseButton mouseButton = MouseButton.valueOf(msgDoActive.getMouseButton());
         List<IBlock> doActionResult = blockManager.doAction(blockPoint, mouseButton, 1);
         return doActionResult;
     }
 
     @RequestMapping("/demo_test_show_chunk")
     @ResponseBody
-    IBlockInfo[] demo_test_show_chunk(RequestGetChunk requestGetChunk) {
-        System.out.println("/demo_test_show_chunk");
-        ChunkPoint chunkPoint = new ChunkPoint(requestGetChunk.getChunkPointX(), requestGetChunk.getChunkPointY());
+    IBlockInfo[] demo_test_show_chunk(MsgGetChunk msgGetChunk) {
+        System.out.println("/game/demo_test_show_chunk");
+        ChunkPoint chunkPoint = new ChunkPoint(msgGetChunk.getChunkPointX(), msgGetChunk.getChunkPointY());
 
         return blockManager.getEntireBlockInfosOfChunk(chunkPoint);
     }
