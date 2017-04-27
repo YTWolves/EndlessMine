@@ -18,7 +18,7 @@
  */
 package keyto.endlessmine.webserver.controller;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -26,16 +26,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  *
  * @author Keyto
  */
-@Configuration
-public class QuickViewController extends WebMvcConfigurerAdapter{
+@Controller
+public class QuickViewController extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("").setViewName("index");
         registry.addViewController("/index").setViewName("index");
-        registry.addViewController("/signUpPage").setViewName("signUpPage");
-        registry.addViewController("/loginPage").setViewName("loginPage");
-        registry.addViewController("/gamePage").setViewName("gamePage");
-        
+        registry.addViewController("/signUp").setViewName("signUp");
+        registry.addViewController("/game").setViewName("game");
+
     }
-    
+
 }

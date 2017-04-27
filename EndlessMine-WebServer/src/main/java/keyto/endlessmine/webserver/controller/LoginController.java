@@ -20,6 +20,7 @@ package keyto.endlessmine.webserver.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -27,9 +28,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class LoginController {
-    @RequestMapping("do_login")
-    String do_login(){
-        
+
+    @RequestMapping(value = "/login")
+    String login() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    String do_login() {
         return "success";
     }
 }

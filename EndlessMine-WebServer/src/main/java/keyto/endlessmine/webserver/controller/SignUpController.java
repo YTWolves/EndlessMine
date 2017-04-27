@@ -16,25 +16,31 @@
  *
  * E-mail: keyto1995@outlook.com
  */
-package keyto.endlessmine.webserver;
+package keyto.endlessmine.webserver.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.google.gson.Gson;
+import keyto.endlessmine.webserver.massage.MsgSignUp;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
  * @author Keyto
  */
 @Controller
-@SpringBootApplication
-public class Application {
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+public class SignUpController {
+
+    @RequestMapping(value = "/signUp")
+    String signUp() {
+        return "signUp";
     }
 
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    @ResponseBody
+    String signUp(MsgSignUp msgSignUp) {
+        System.out.println("signUp:" + msgSignUp);
+        return new Gson().toJson(msgSignUp);
+    }
 }
