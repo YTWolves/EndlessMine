@@ -18,7 +18,6 @@
  */
 package keyto.endlessmine.dbservice.service;
 
-import java.util.List;
 import keyto.endlessmine.dbservice.entity.Player;
 import keyto.endlessmine.dbservice.repository.PlayerRepository;
 
@@ -52,8 +51,8 @@ public class PlayerService {
         return save;
     }
     
-    public List<Player> findByName(String name){
-        List<Player> players=playerRepository.findByName(name);
-        return players;
+    public Player findByNameAndPassword(String name,String password){
+        Player player=playerRepository.findByNameAndPassword(name,password);
+        return player;
     }
 }

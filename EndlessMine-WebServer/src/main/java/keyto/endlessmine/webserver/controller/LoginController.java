@@ -18,9 +18,15 @@
  */
 package keyto.endlessmine.webserver.controller;
 
+import javax.servlet.http.HttpSession;
+import keyto.endlessmine.dbservice.entity.Player;
+import keyto.endlessmine.dbservice.service.PlayerService;
+import keyto.endlessmine.webserver.massage.MsgDoLogin;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -29,13 +35,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoginController {
 
-    @RequestMapping(value = "/login")
+    @Autowired
+    PlayerService playerService;
+
+    @RequestMapping(value = "login")
     String login() {
         return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    String do_login() {
-        return "success";
+    @ResponseBody
+    Player do_login(MsgDoLogin doLogin, HttpSession session) {
+        Player player = playerService.findByNameAndPassword(doLogin.getName(), doLogin.getPassword());
+        return player;
     }
 }

@@ -29,4 +29,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     List<Player> findByName(String name);
+
+    Player findByNameAndPassword(String name, String password);
 }
