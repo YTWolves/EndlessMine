@@ -96,7 +96,7 @@ public class BlockManager {
      */
     private boolean writeBlockID(IBlock block) {
         IChunk chunk = CF.getChunk(block.getBlockPoint().getChunkPoint());
-        return chunk.setBlockID(block);
+        return chunk.setBlock(block);
     }
 
     /**
@@ -129,17 +129,17 @@ public class BlockManager {
      * @param usrID       用户ID
      * @return
      */
-    private List<IBlock> assembleBlocks(List<IBlockPoint> ccs, MouseButton mouseButton, int usrID) {
+    private List<IBlock> assembleBlocks(List<IBlockPoint> ccs, MouseButton mouseButton, int userID) {
         List<IBlock> results = new LinkedList<>();
         for (IBlockPoint blockPoint : ccs) {
             //TODO:替换为工厂？
-            Block block = new Block(blockPoint, BlockInfo.EMPTY());
+            IBlock block = new Block(blockPoint, BlockInfo.EMPTY());
             IBlockInfo blockInfo = block.getBlockInfo();
             blockInfo.setSearched(true);
             blockInfo.setBomb(getIsBomb(blockPoint));
             blockInfo.setBombCount(getBombCount(blockPoint));
             blockInfo.setClick(mouseButton);
-            blockInfo.setUsrID(usrID);
+            blockInfo.setUserID(userID);
 
             results.add(block);
         }

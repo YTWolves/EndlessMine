@@ -22,7 +22,7 @@
  var block = {
  "blockPoint": {"chunkPoint": {"x": 1, "y": 2},
  "blockIndex": {"x": 3, "y": 0}},
- "blockInfo": {"searched": true, "bomb": true, "bombCount": 2, "click": "SECONDARY", "usrID": 1}
+ "blockInfo": {"searched": true, "bomb": true, "bombCount": 2, "click": "SECONDARY", "userID": 1}
  };
  */
 //MouseButton枚举，本项目只有PRIMARY，SECONDARY有效值
@@ -51,11 +51,11 @@ function BlockInfo(blockInfo) {
     this.bomb = blockInfo.bomb;
     this.bombCount = blockInfo.bombCount;
     this.click = blockInfo.click;
-    this.usrID = blockInfo.usrID;
+    this.userID = blockInfo.userID;
 }
-function Block(json) {
-    this.blockPoint = new BlockPoint(json.blockPoint);
-    this.blockInfo = new BlockInfo(json.blockInfo);
+function Block(block) {
+    this.blockPoint = new BlockPoint(block.blockPoint);
+    this.blockInfo = new BlockInfo(block.blockInfo);
 }
 
 //测试Git

@@ -62,13 +62,13 @@ public class WriteableChunk implements IChunk {
     }
 
     @Override
-    public Block getBlock(IBlockPoint blockPoint) {
+    public IBlock getBlock(IBlockPoint blockPoint) {
         long blockId = blockSerialize.get(blockPoint.getBlockIndex().getIndex());
         return new Block(blockPoint, blockId);
     }
 
     @Override
-    public BlockInfo getBlockInfo(int index) {
+    public IBlockInfo getBlockInfo(int index) {
         long blockId = blockSerialize.get(index);
         return new BlockInfo(blockId);
     }
@@ -96,7 +96,7 @@ public class WriteableChunk implements IChunk {
      *         false 写入失败
      */
     @Override
-    public boolean setBlockID(IBlock block) {
+    public boolean setBlock(IBlock block) {
         int index = block.getBlockPoint().getBlockIndex().getIndex();
         long blockID = block.getBlockInfo().toBlockID();
         boolean success = this.blockSerialize.compareAndSet(index, 0L, blockID);

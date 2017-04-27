@@ -42,7 +42,7 @@ public interface IChunk {
 
     boolean getIsBomb(int index);
 
-    boolean setBlockID(IBlock block);
+    boolean setBlock(IBlock block);
 
     boolean isFinished();
 
