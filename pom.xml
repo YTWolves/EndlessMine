@@ -6,7 +6,7 @@
     <name>EndlessMine</name>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <url></url>
+    <url>https://github.com/Keyto1995/EndlessMine/</url>
     <description>EndlessMine</description>
     <modules>
         <module>EndlessMine-Common</module>
