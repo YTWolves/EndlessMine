@@ -33,7 +33,6 @@ public class QuickViewController extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("").setViewName("index");
         registry.addViewController("/index").setViewName("index");
-        registry.addViewController("/signUp").setViewName("signUp");
         registry.addViewController("/game").setViewName("game");
 
     }
