@@ -6,6 +6,7 @@
         "th:unless": {},
         "th:src": {},
         "th:href": {},
-        "th:fragment": {}
+        "th:fragment": {},
+        "th:value": {}
     }
 }

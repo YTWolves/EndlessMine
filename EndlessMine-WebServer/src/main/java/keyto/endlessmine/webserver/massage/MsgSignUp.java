@@ -27,7 +27,6 @@ public class MsgSignUp {
     private String name;
     private String email;
     private String password;
-    private String rpassword;
 
     /**
      * @return the name
@@ -71,27 +70,12 @@ public class MsgSignUp {
         this.password = password;
     }
 
-    /**
-     * @return the rpassword
-     */
-    public String getRpassword() {
-        return rpassword;
-    }
-
-    /**
-     * @param rpassword the rpassword to set
-     */
-    public void setRpassword(String rpassword) {
-        this.rpassword = rpassword;
-    }
-
     @Override
     public String toString() {
         return super.toString()
                 + " [ name=" + name
                 + ",email=" + email
                 + ",password=" + password
-                + ",rpassword=" + rpassword
                 + " ]";
     }
 

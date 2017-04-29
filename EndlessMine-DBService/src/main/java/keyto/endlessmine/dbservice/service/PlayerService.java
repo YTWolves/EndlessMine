@@ -50,9 +50,19 @@ public class PlayerService {
         System.out.println("res:" + save);
         return save;
     }
-    
-    public Player findByNameAndPassword(String name,String password){
-        Player player=playerRepository.findByNameAndPassword(name,password);
+
+    public Player findByNameAndPassword(String name, String password) {
+        Player player = playerRepository.findByNameAndPassword(name, password);
         return player;
+    }
+
+    public boolean existsByName(String name) {
+        Boolean existsByName = playerRepository.existsByName(name);
+        return existsByName;
+    }
+
+    public boolean existsByEmail(String email) {
+        Boolean existsByEmail = playerRepository.existsByEmail(email);
+        return existsByEmail;
     }
 }

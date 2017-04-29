@@ -33,17 +33,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Keyto
  */
 @Controller
+@RequestMapping("/login")
 public class LoginController {
 
     @Autowired
     PlayerService playerService;
 
-    @RequestMapping(value = "login")
+    @RequestMapping("")
     String login() {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     Player do_login(MsgDoLogin doLogin, HttpSession session) {
         Player player = playerService.findByNameAndPassword(doLogin.getName(), doLogin.getPassword());

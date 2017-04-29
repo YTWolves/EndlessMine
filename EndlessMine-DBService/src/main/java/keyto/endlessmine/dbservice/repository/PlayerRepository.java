@@ -21,6 +21,8 @@ package keyto.endlessmine.dbservice.repository;
 import java.util.List;
 import keyto.endlessmine.dbservice.entity.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -31,4 +33,22 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     List<Player> findByName(String name);
 
     Player findByNameAndPassword(String name, String password);
+
+    /**
+     * 查询是否存在该用户名
+     *
+     * @param username
+     * @return
+     */
+    @Query("SELECT CASE WHEN COUNT(u) > 0 THEN 'true' ELSE 'false' END FROM UserInfo u WHERE u.name = :name")
+    public Boolean existsByName(@Param("name") String username);
+
+    /**
+     * 查询是否存在该邮箱
+     *
+     * @param email
+     * @return
+     */
+    @Query("SELECT CASE WHEN COUNT(u) > 0 THEN 'true' ELSE 'false' END FROM UserInfo u WHERE u.email = :email")
+    public Boolean existsByEmail(@Param("email") String email);
 }

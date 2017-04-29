@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -44,8 +45,11 @@ public class UserInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false, unique = true) //用户名非空唯一
     private String name;
+    @Column(unique = true)  //邮箱地址唯一
     private String email;
+    @Column(nullable = false)   //密码非空
     private String password;
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private List<SysRole> roles;

@@ -38,8 +38,8 @@ E-mail: keyto1995@outlook.com
     <body>
         <h1>signUp</h1>
         <form action="signUp" method="post">
-            用户名：<input type="text" name="name" value="" /><br/>
-            邮箱： <input type="text" name="email" value="" /><br/>
+            用户名：<input type="text" name="name" value="" th:value="${name}" /><br/>
+            邮箱： <input type="text" name="email" value="" th:value="${email}" /><br/>
             密码： <input type="password" name="password" value="" /><br/>
             重复密码： <input type="password" name="rpassword" value="" /><br/>
             <input type="submit" value="注册" name="submit" />
