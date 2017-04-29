@@ -48,7 +48,9 @@ public class SignUpController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     ModelAndView signUp(MsgSignUp msgSignUp, HttpSession session) {
         System.out.println("signUp:" + msgSignUp);
-        if (existsByName(msgSignUp.getName()) || existsByEmail(msgSignUp.getEmail())) {
+        if (msgSignUp.getPassword().equals("")
+                || existsByName(msgSignUp.getName())
+                || existsByEmail(msgSignUp.getEmail())) {
             ModelAndView mv = new ModelAndView("signUp");
             mv.addObject("name", msgSignUp.getName());
             mv.addObject("email", msgSignUp.getEmail());
