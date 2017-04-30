@@ -36,8 +36,10 @@ E-mail: keyto1995@outlook.com
         <![endif]-->
     </head>
     <body>
+        <p th:if="${param.logout}">已成功注销</p>
+        <p th:if="${param.error}">有错误，请重试</p>
 
-        <form action="/login" th:action="@{/login}" method="post">
+        <form action="#" th:action="@{/login}" method="post">
             用户名：<input type="text" name="username"/><br/>
             密码：  <input type="password" name="password"/><br/>
             <input type="submit" value="submit"/>
