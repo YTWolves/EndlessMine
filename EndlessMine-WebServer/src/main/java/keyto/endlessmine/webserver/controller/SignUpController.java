@@ -36,19 +36,21 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/signUp")
 public class SignUpController {
-
+    
     @Autowired
     PlayerService playerService;
-
+    
     @RequestMapping("")
     String signUp() {
         return "signUp";
     }
-
+    
     @RequestMapping(value = "", method = RequestMethod.POST)
     ModelAndView signUp(MsgSignUp msgSignUp, HttpSession session) {
         System.out.println("signUp:" + msgSignUp);
-        if (msgSignUp.getPassword().equals("")
+        if (msgSignUp.getName().equals("")
+                || msgSignUp.getName().matches("[@]")
+                || msgSignUp.getPassword().equals("")
                 || existsByName(msgSignUp.getName())
                 || existsByEmail(msgSignUp.getEmail())) {
             ModelAndView mv = new ModelAndView("signUp");
@@ -67,13 +69,13 @@ public class SignUpController {
             throw ex;
         }
     }
-
+    
     @RequestMapping(value = "/existsByName")
     @ResponseBody
     Boolean existsByName(String name) {
         return playerService.existsByName(name);
     }
-
+    
     @RequestMapping(value = "/existsByEmail")
     @ResponseBody
     Boolean existsByEmail(String email) {
