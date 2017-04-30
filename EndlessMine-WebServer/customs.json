@@ -8,6 +8,9 @@
         "th:action": {},
         "th:href": {},
         "th:fragment": {},
+        "th:content": {
+            "context": "meta"
+        },
         "th:value": {}
     }
 }
