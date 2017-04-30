@@ -120,14 +120,14 @@ public class UserInfo implements UserDetails, Serializable {
     }
 
     /**
-     * @return the tmpRoles
+     * @return the roles
      */
     public List<SysRole> getRoles() {
         return roles;
     }
 
     /**
-     * @param roles the tmpRoles to set
+     * @param roles the roles to set
      */
     public void setRoles(List<SysRole> roles) {
         this.roles = roles;
