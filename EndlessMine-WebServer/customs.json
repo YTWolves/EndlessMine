@@ -5,6 +5,7 @@
         "th:text": {},
         "th:unless": {},
         "th:src": {},
+        "th:action": {},
         "th:href": {},
         "th:fragment": {},
         "th:value": {}

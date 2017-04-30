@@ -41,10 +41,14 @@ E-mail: keyto1995@outlook.com
         <a href="signUp">signUpPage</a><br/>
         <a href="game">gamePage</a>
 
+        <form action="#" th:action="@{/logout}" method="post">
+            <input type="submit" value="注销"/>
+        </form>
+
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!--<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
-        <script src="../static/jquery-3.2.1.min.js" th:src="@{jquery-3.2.1.min.js}"></script>
+        <script src="../static/script/jquery-3.2.1.min.js" th:src="@{/script/jquery-3.2.1.min.js}"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{bootstrap/js/bootstrap.min.js}"></script>
         <script type="text/javascript">

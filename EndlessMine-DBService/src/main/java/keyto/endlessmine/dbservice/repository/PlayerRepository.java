@@ -18,7 +18,6 @@
  */
 package keyto.endlessmine.dbservice.repository;
 
-import java.util.List;
 import keyto.endlessmine.dbservice.entity.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,7 +29,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 
-    List<Player> findByName(String name);
+    Player findByName(String name);
 
     Player findByNameAndPassword(String name, String password);
 

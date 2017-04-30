@@ -20,12 +20,15 @@ package keyto.endlessmine.dbservice.service;
 
 import keyto.endlessmine.dbservice.entity.Player;
 import keyto.endlessmine.dbservice.repository.PlayerRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  *
  * @author Keyto
  */
-public class PlayerService {
+public class PlayerService implements UserDetailsService{
 
     private PlayerRepository playerRepository;
 
@@ -64,5 +67,14 @@ public class PlayerService {
     public boolean existsByEmail(String email) {
         Boolean existsByEmail = playerRepository.existsByEmail(email);
         return existsByEmail;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Player user=playerRepository.findByName(username);
+        if(null==user){
+            throw new UsernameNotFoundException("用户名不存在："+username);
+        }
+        return user;
     }
 }

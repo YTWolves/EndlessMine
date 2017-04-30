@@ -24,21 +24,21 @@ package keyto.endlessmine.webserver.massage;
  */
 public class MsgDoLogin {
 
-    private String name;
+    private String username;
     private String password;
 
     /**
-     * @return the name
+     * @return the username
      */
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     /**
-     * @param name the name to set
+     * @param username the username to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -58,7 +58,7 @@ public class MsgDoLogin {
     @Override
     public String toString() {
         return super.toString()
-                + " [ name=" + name
+                + " [ username=" + username
                 + ",password=" + password 
                 + " ]";
     }

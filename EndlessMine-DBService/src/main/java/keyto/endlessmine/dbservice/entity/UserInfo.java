@@ -19,6 +19,8 @@
 package keyto.endlessmine.dbservice.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -31,6 +33,9 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
@@ -38,7 +43,7 @@ import javax.persistence.ManyToMany;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class UserInfo implements Serializable {
+public class UserInfo implements UserDetails, Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -115,14 +120,14 @@ public class UserInfo implements Serializable {
     }
 
     /**
-     * @return the roles
+     * @return the tmpRoles
      */
     public List<SysRole> getRoles() {
         return roles;
     }
 
     /**
-     * @param roles the roles to set
+     * @param roles the tmpRoles to set
      */
     public void setRoles(List<SysRole> roles) {
         this.roles = roles;
@@ -162,6 +167,41 @@ public class UserInfo implements Serializable {
                 + ",password=" + password
                 + ",roles=" + roles
                 + " ]";
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> auths = new ArrayList<>();
+        List<SysRole> tmpRoles = this.getRoles();
+        for (SysRole role : tmpRoles) {
+            auths.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return auths;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getName();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
 }
