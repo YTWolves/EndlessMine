@@ -103,11 +103,11 @@ public class MsgDoActive {
     @Override
     public String toString() {
         return super.toString()
-                + " [ chunkPointX=" + chunkPointX 
-                + ",chunkPointY=" + chunkPointY 
-                + ",blockX=" + blockX 
-                + ",blockY=" + blockY 
-                + "," + mouseButton 
+                + " [ chunkPointX=" + chunkPointX
+                + ",chunkPointY=" + chunkPointY
+                + ",blockX=" + blockX
+                + ",blockY=" + blockY
+                + ",mouseButton=" + mouseButton
                 + " ]";
     }
 

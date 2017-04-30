@@ -34,6 +34,26 @@ if (typeof MouseButton === "undefined") {
         SECONDARY: "SECONDARY"
     };
 }
+//MinePicEnum，枚举格子图片
+if (typeof MinePicEnum === "undefined") {
+    var MinePicEnum = {
+        BMP_0: "/image/0.bmp",
+        BMP_1: "/image/1.bmp",
+        BMP_2: "/image/2.bmp",
+        BMP_3: "/image/3.bmp",
+        BMP_4: "/image/4.bmp",
+        BMP_5: "/image/5.bmp",
+        BMP_6: "/image/6.bmp",
+        BMP_7: "/image/7.bmp",
+        BMP_8: "/image/8.bmp",
+        BMP_ASK: "/image/ask.bmp",
+        BMP_BLANK: "/image/blank.bmp",
+        BMP_BLOOD: "/image/blood.bmp",
+        BMP_ERROR: "/image/error.bmp",
+        BMP_FLAG: "/image/flag.bmp",
+        BMP_MINE: "/image/mine.bmp"
+    };
+}
 function ChunkPoint(chunkPoint) {
     this.x = chunkPoint.x;
     this.y = chunkPoint.y;
@@ -58,7 +78,6 @@ function Block(block) {
     this.blockInfo = new BlockInfo(block.blockInfo);
 }
 
-//测试Git
 BlockInfo.prototype = {
     constructor: BlockInfo,
     isSearched: function () {
@@ -75,13 +94,13 @@ BlockInfo.prototype = {
     },
     getPic: function () {
         if (!this.isSearched()) {
-            return "/image/BMP_BLANK.bmp";
+            return MinePicEnum.BMP_BLANK;
         } else if (this.isBomb()) {
             if (this.getClick() === MouseButton.SECONDARY) {
                 //TODO:flag换成个人头像
-                return "/image/BMP_FLAG.bmp";
+                return MinePicEnum.BMP_FLAG;
             } else {
-                return "/image/BMP_BLOOD.bmp";
+                return MinePicEnum.BMP_BLOOD;
             }
         } else if (this.getClick() !== MouseButton.SECONDARY) {
             return this.getPicByCount(this.getBombCount());
@@ -93,25 +112,25 @@ BlockInfo.prototype = {
     getPicByCount: function (count) {
         switch (count) {
             case 0:
-                return "/image/BMP_0.bmp";
+                return MinePicEnum.BMP_0;
             case 1:
-                return "/image/BMP_1.bmp";
+                return MinePicEnum.BMP_1;
             case 2:
-                return "/image/BMP_2.bmp";
+                return MinePicEnum.BMP_2;
             case 3:
-                return "/image/BMP_3.bmp";
+                return MinePicEnum.BMP_3;
             case 4:
-                return "/image/BMP_4.bmp";
+                return MinePicEnum.BMP_4;
             case 5:
-                return "/image/BMP_5.bmp";
+                return MinePicEnum.BMP_5;
             case 6:
-                return "/image/BMP_6.bmp";
+                return MinePicEnum.BMP_6;
             case 7:
-                return "/image/BMP_7.bmp";
+                return MinePicEnum.BMP_7;
             case 8:
-                return "/image/BMP_8.bmp";
+                return MinePicEnum.BMP_8;
             default:
-                return "/image/BMP_ASK.bmp";
+                return MinePicEnum.BMP_ASK;
         }
     }
 };
