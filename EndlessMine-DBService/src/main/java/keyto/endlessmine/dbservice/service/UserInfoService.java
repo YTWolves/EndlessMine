@@ -20,13 +20,17 @@ package keyto.endlessmine.dbservice.service;
 
 import keyto.endlessmine.dbservice.entity.UserInfo;
 import keyto.endlessmine.dbservice.repository.UserInfoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Keyto
  */
+@Service
 public class UserInfoService {
 
+    @Autowired
     private UserInfoRepository userInfoRepository;
 
     /**
