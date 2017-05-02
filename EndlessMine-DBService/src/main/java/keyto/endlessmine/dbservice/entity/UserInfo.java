@@ -56,7 +56,7 @@ public class UserInfo implements UserDetails, Serializable {
     private String email;
     @Column(nullable = false)   //密码非空
     private String password;
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<SysRole> roles;
 
     public UserInfo() {
@@ -173,8 +173,10 @@ public class UserInfo implements UserDetails, Serializable {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
         List<SysRole> tmpRoles = this.getRoles();
-        for (SysRole role : tmpRoles) {
-            auths.add(new SimpleGrantedAuthority(role.getName()));
+        if (null != tmpRoles) {
+            for (SysRole role : tmpRoles) {
+                auths.add(new SimpleGrantedAuthority(role.getName()));
+            }
         }
         return auths;
     }

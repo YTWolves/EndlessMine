@@ -20,16 +20,20 @@ package keyto.endlessmine.dbservice.service;
 
 import keyto.endlessmine.dbservice.entity.Player;
 import keyto.endlessmine.dbservice.repository.PlayerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Keyto
  */
-public class PlayerService implements UserDetailsService{
+@Service
+public class PlayerService implements UserDetailsService {
 
+    @Autowired
     private PlayerRepository playerRepository;
 
     /**
@@ -46,11 +50,9 @@ public class PlayerService implements UserDetailsService{
         this.playerRepository = playerRepository;
     }
 
-    public Player save(String name, String email, String password, Long score) {
-        Player player = new Player(null, name, email, password, score);
-
+//    @CachePut(value = "player", key = "#player.name")
+    public Player save(Player player) {
         Player save = playerRepository.save(player);
-        System.out.println("res:" + save);
         return save;
     }
 
@@ -70,11 +72,13 @@ public class PlayerService implements UserDetailsService{
     }
 
     @Override
+//    @Cacheable(value = "player", key = "#player.name")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Player user=playerRepository.findByName(username);
-        if(null==user){
-            throw new UsernameNotFoundException("用户名不存在："+username);
+        Player player = playerRepository.findByName(username);
+        if (null == player) {
+            System.out.println("用户名不存在：" + username);
+            throw new UsernameNotFoundException("用户名不存在：" + username);
         }
-        return user;
+        return player;
     }
 }

@@ -36,6 +36,11 @@ public class Player extends UserInfo implements Serializable {
     public Player() {
     }
 
+    public Player(Long id, String name, String email, String password) {
+        super(id, name, email, password);
+        this.score = 0L;
+    }
+
     public Player(Long id, String name, String email, String password, Long score) {
         super(id, name, email, password);
         this.score = score;

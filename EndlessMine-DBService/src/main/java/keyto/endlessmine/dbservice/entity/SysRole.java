@@ -38,8 +38,20 @@ public class SysRole implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
+
+    public SysRole() {
+    }
+
+    public SysRole(String name) {
+        this.name = name;
+    }
+
+    public SysRole(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
