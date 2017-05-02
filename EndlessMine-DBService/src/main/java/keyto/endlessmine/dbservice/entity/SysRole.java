@@ -48,14 +48,11 @@ public class SysRole implements Serializable {
         this.name = name;
     }
 
-<<<<<<< HEAD
     public SysRole(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-=======
->>>>>>> origin/master
     public Long getId() {
         return id;
     }
