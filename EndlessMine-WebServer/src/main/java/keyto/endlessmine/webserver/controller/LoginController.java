@@ -16,34 +16,22 @@
  *
  * E-mail: keyto1995@outlook.com
  */
-package keyto.endlessmine.common.chunk;
+package keyto.endlessmine.webserver.controller;
 
-import keyto.endlessmine.common.block.IBlock;
-import keyto.endlessmine.common.block.IBlockInfo;
-import keyto.endlessmine.common.coordinate_system.IBlockPoint;
-import keyto.endlessmine.common.coordinate_system.IChunkPoint;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
  * @author Keyto
  */
-public interface IChunk {
+@Controller
+@RequestMapping("/login")
+public class LoginController {
 
-    IBlock getBlock(IBlockPoint blockPoint);
-
-    IBlockInfo getBlockInfo(int index);
-
-    IBlockInfo[] getBlockInfos();
-
-    /**
-     * @return the chunkPoint
-     */
-    IChunkPoint getCPoint();
-
-    boolean getIsBomb(int index);
-
-    boolean setBlock(IBlock block);
-
-    boolean isFinished();
+    @RequestMapping("")
+    String login() {
+        return "login";
+    }
 
 }

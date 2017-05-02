@@ -49,7 +49,7 @@ public class SimpleChunk implements IChunk {
     }
 
     @Override
-    public BlockInfo getBlockInfo(int index) {
+    public IBlockInfo getBlockInfo(int index) {
         long blockId = blockIDs[index];
         return new BlockInfo(blockId);
     }
@@ -74,7 +74,7 @@ public class SimpleChunk implements IChunk {
     }
 
     @Override
-    public boolean setBlockID(IBlock block) {
+    public boolean setBlock(IBlock block) {
         return false;
     }
 

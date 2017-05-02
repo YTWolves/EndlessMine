@@ -5,7 +5,12 @@
         "th:text": {},
         "th:unless": {},
         "th:src": {},
+        "th:action": {},
         "th:href": {},
-        "th:fragment": {}
+        "th:fragment": {},
+        "th:content": {
+            "context": "meta"
+        },
+        "th:value": {}
     }
 }

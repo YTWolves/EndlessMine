@@ -16,28 +16,17 @@
  *
  * E-mail: keyto1995@outlook.com
  */
-package keyto.endlessmine.webserver.eneity;
-
-import java.util.Date;
+package keyto.endlessmine.webserver.massage;
 
 /**
  *
  * @author Keyto
  */
-public class ResponseA {
+public class MsgSignUp {
+
     private String name;
-    private int age;
-    private Date date;
-
-    public ResponseA() {
-    }
-
-    public ResponseA(String name, int age, Date date) {
-        this.name = name;
-        this.age = age;
-        this.date = date;
-    }
-    
+    private String email;
+    private String password;
 
     /**
      * @return the name
@@ -54,30 +43,40 @@ public class ResponseA {
     }
 
     /**
-     * @return the age
+     * @return the email
      */
-    public int getAge() {
-        return age;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * @param age the age to set
+     * @param email the email to set
      */
-    public void setAge(int age) {
-        this.age = age;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
-     * @return the date
+     * @return the password
      */
-    public Date getDate() {
-        return date;
+    public String getPassword() {
+        return password;
     }
 
     /**
-     * @param date the date to set
+     * @param password the password to set
      */
-    public void setDate(Date date) {
-        this.date = date;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()
+                + " [ name=" + name
+                + ",email=" + email
+                + ",password=" + password
+                + " ]";
+    }
+
 }

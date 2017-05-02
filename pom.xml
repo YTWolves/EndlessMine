@@ -6,12 +6,13 @@
     <name>EndlessMine</name>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <url></url>
+    <url>https://github.com/Keyto1995/EndlessMine/</url>
     <description>EndlessMine</description>
     <modules>
         <module>EndlessMine-Common</module>
         <module>EndlessMine-GameServer</module>
         <module>EndlessMine-WebServer</module>
+        <module>EndlessMine-DBService</module>
     </modules>
     
     <properties>
@@ -27,7 +28,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.2.RELEASE</version>
+        <version>1.5.3.RELEASE</version>
     </parent>  
     
 </project>

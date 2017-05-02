@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-Copyright (C) 2017 Keyto
+Copyright (C) 2017 Pivotal Software, Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,9 +24,14 @@ E-mail: keyto1995@outlook.com
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-        <title>TODO supply a title</title>
+        <!-- csrf 支持 -->
+        <meta name="_csrf" th:content="${_csrf.token}" content=""/>
+        <!-- default header name is X-CSRF-TOKEN -->
+        <meta name="_csrf_header" th:content="${_csrf.headerName}" content=""/>
+        
+        <title>signUp</title>
         <!-- Bootstrap -->
-        <link href="../static/bootstrap/css/bootstrap.min.css" th:href="@{bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link href="../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,19 +41,22 @@ E-mail: keyto1995@outlook.com
         <![endif]-->
     </head>
     <body>
-
-        <form action="do_login" method="post">
-            用户名：<input type="text" name="name"/><br/>
-            密码：  <input type="password" name="password"/><br/>
-            <input type="submit" value="submit"/>
+        <h1>signUp</h1>
+        <form action="#" th:action="@{/signUp}" method="post">
+            用户名：<input type="text" name="name" value="" th:value="${name}" /><br/>
+            邮箱： <input type="text" name="email" value="" th:value="${email}" /><br/>
+            密码： <input type="password" name="password" value="" /><br/>
+            重复密码： <input type="password" name="rpassword" value="" /><br/>
+            <input type="submit" value="注册" name="submit" />
+            <input type="reset" value="重置" name="reset" />
         </form>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!--<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
-        <script src="../static/jquery-3.2.1.min.js" th:src="@{jquery-3.2.1.min.js}"></script>
+        <script src="../static/script/jquery-3.2.1.min.js" th:src="@{/script/jquery-3.2.1.min.js}"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{bootstrap/js/bootstrap.min.js}"></script>
+        <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
         <script type="text/javascript">
 
         </script>

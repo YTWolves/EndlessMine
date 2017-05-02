@@ -16,48 +16,17 @@
  *
  * E-mail: keyto1995@outlook.com
  */
-package keyto.endlessmine.webserver.eneity;
+package keyto.endlessmine.dbservice.repository;
+
+import java.util.List;
+import keyto.endlessmine.dbservice.entity.UserInfo;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Keyto
  */
-public class RequestA {
+public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
 
-    private String name;
-    private String city;
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the city
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * @param city the city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + " [ " + name + "," + city + " ]";
-    }
-
+    List<UserInfo> findByName(String name);
 }

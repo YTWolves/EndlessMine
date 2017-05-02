@@ -32,10 +32,10 @@ public class BlockInfo implements IBlockInfo {
     private boolean bomb = false;
     private int bombCount = 0;
     private MouseButton click = MouseButton.NONE;
-    private long usrID = 0;
+    private long userID = 0;
 
     public BlockInfo(long blockID) {
-        this.usrID = blockID & 0xFF_FFFF_FFFF_FFFFL;
+        this.userID = blockID & 0xFF_FFFF_FFFF_FFFFL;
         this.click = MouseButton.getMouseButton((int) ((blockID >> 56) & 0b11));
         this.bombCount = (int) ((blockID >> 58) & 0b1111);
         this.bomb = ((blockID >> 62) & 0b1) != 0;
@@ -107,19 +107,19 @@ public class BlockInfo implements IBlockInfo {
     }
 
     /**
-     * @return the usrID
+     * @return the userID
      */
     @Override
-    public long getUsrID() {
-        return usrID;
+    public long getUserID() {
+        return userID;
     }
 
     /**
-     * @param usrID the usrID to set
+     * @param usrID the userID to set
      */
     @Override
-    public void setUsrID(long usrID) {
-        this.usrID = usrID;
+    public void setUserID(long userID) {
+        this.userID = userID;
     }
 
     /**
@@ -140,7 +140,7 @@ public class BlockInfo implements IBlockInfo {
         if (this.searched != other.searched) return false;
         if (this.bomb != other.bomb) return false;
         if (this.bombCount != other.bombCount) return false;
-        if (this.usrID != other.usrID) return false;
+        if (this.userID != other.userID) return false;
         if (this.click != other.click) return false;
         return true;
     }
@@ -152,7 +152,7 @@ public class BlockInfo implements IBlockInfo {
         hash = 29 * hash + (this.bomb ? 1 : 0);
         hash = 29 * hash + this.bombCount;
         hash = 29 * hash + Objects.hashCode(this.click);
-        hash = 29 * hash + (int) (this.usrID ^ (this.usrID >>> 32));
+        hash = 29 * hash + (int) (this.userID ^ (this.userID >>> 32));
         return hash;
     }
 
@@ -162,7 +162,7 @@ public class BlockInfo implements IBlockInfo {
                 + this.bomb + ","
                 + this.bombCount + ","
                 + this.click + ","
-                + this.usrID + " ]";
+                + this.userID + " ]";
     }
 
     @Override
@@ -180,7 +180,7 @@ public class BlockInfo implements IBlockInfo {
         blockID <<= 2;
         blockID |= this.click.getMouseKeyValue();
         blockID <<= 56;
-        blockID |= ((long) this.usrID) & 0xFF_FFFF_FFFF_FFFFL;
+        blockID |= ((long) this.userID) & 0xFF_FFFF_FFFF_FFFFL;
         return blockID;
     }
 }

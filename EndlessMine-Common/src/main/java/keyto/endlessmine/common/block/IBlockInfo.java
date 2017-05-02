@@ -37,9 +37,14 @@ public interface IBlockInfo {
     MouseButton getClick();
 
     /**
-     * @return the usrID
+     * @return the userID
      */
-    long getUsrID();
+    long getUserID();
+
+    /**
+     * @param userID the userID to set
+     */
+    void setUserID(long userID);
 
     /**
      * @return the bomb
@@ -70,11 +75,6 @@ public interface IBlockInfo {
      * @param searched the searched to set
      */
     void setSearched(boolean searched);
-
-    /**
-     * @param usrID the usrID to set
-     */
-    void setUsrID(long usrID);
 
     long toBlockID();
 

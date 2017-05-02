@@ -16,48 +16,25 @@
  *
  * E-mail: keyto1995@outlook.com
  */
-package keyto.endlessmine.webserver.eneity;
+package keyto.endlessmine.webserver.controller;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  *
  * @author Keyto
  */
-public class User {
-
-    private String name;
-    private String password;
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+@Configuration
+public class QuickViewController extends WebMvcConfigurerAdapter {
 
     @Override
-    public String toString() {
-        return super.toString() + " [ " + name + "," + password + " ]";
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("").setViewName("index");
+        registry.addViewController("/index").setViewName("index");
+        registry.addViewController("/game").setViewName("game");
+
     }
 
 }
