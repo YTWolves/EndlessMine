@@ -56,7 +56,11 @@ public class UserInfo implements UserDetails, Serializable {
     private String email;
     @Column(nullable = false)   //密码非空
     private String password;
+<<<<<<< HEAD
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+=======
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+>>>>>>> origin/master
     private List<SysRole> roles;
 
     public UserInfo() {

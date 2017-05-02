@@ -18,8 +18,14 @@
  */
 package keyto.endlessmine.webserver.controller;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> origin/master
 import javax.servlet.http.HttpServletRequest;
 import keyto.endlessmine.dbservice.entity.Player;
+import keyto.endlessmine.dbservice.entity.SysRole;
 import keyto.endlessmine.dbservice.service.PlayerService;
 import keyto.endlessmine.webserver.massage.MsgDoLogin;
 import keyto.endlessmine.webserver.massage.MsgSignUp;
@@ -46,6 +52,17 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/signUp")
 public class SignUpController {
 
+<<<<<<< HEAD
+=======
+    private static final List<SysRole> DEFAULT_ROLES;
+
+    static {
+        DEFAULT_ROLES = new ArrayList<>();
+        DEFAULT_ROLES.add(new SysRole("ROLE_USER"));
+        DEFAULT_ROLES.add(new SysRole("ROLE_PLAYER"));
+    }
+
+>>>>>>> origin/master
     @Autowired
     PlayerService playerService;
 
@@ -72,6 +89,10 @@ public class SignUpController {
         }
         try {
             Player player = new Player(null, msgSignUp.getName(), msgSignUp.getEmail(), msgSignUp.getPassword());
+<<<<<<< HEAD
+=======
+            player.setRoles(DEFAULT_ROLES);
+>>>>>>> origin/master
             Player save = playerService.save(player);
             MsgDoLogin msgDoLogin = new MsgDoLogin();
             msgDoLogin.setUsername(msgSignUp.getName());
