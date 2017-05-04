@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../static/script/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
+        <script src="../static/jquery-ui/jquery-ui.js"></script>
+        <script src="../static/vue/vue.js"></script>
+        <style>
+            #draggable { width: 150px; height: 150px; padding: 0.5em; }
+            /*html { overflow: hidden; }*/
+        </style>
+        <script>
+            $(function () {
+                $("#draggable").draggable({
+                    distance: 10,
+                    scroll: false,
+                    start: function () {
+                    },
+                    drag: function () {
+                    },
+                    stop: function (event) {
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="draggable" class="ui-widget ui-widget-content">
+
+            <table border="1" width="3" data-chunk-x="1" data-chunk-y="2">
+                <tr data-block-y="0">
+                    <td data-block-x="0"><img src="../static/image/0.bmp"/></td>
+                    <td data-block-x="1"><img src="../static/image/1.bmp"/></td>
+                    <td data-block-x="2"><img src="../static/image/2.bmp"/></td>
+                    <td data-block-x="3"><img src="../static/image/3.bmp"/></td>
+                </tr>
+                <tr data-block-y="1">
+                    <td data-block-x="0"><img src="../static/image/4.bmp"/></td>
+                    <td data-block-x="1"><img src="../static/image/5.bmp"/></td>
+                    <td data-block-x="2"><img src="../static/image/6.bmp"/></td>
+                    <td data-block-x="3"><img src="../static/image/7.bmp"/></td>
+                </tr>
+                <tr data-block-y="2">
+                    <td data-block-x="0"><img src="../static/image/8.bmp"/></td>
+                    <td data-block-x="1"><img src="../static/image/blood.bmp"/></td>
+                    <td data-block-x="2"><img src="../static/image/ask.bmp"/></td>
+                    <td data-block-x="3"><img src="../static/image/blank.bmp"/></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="example-1">
+            <div is="mine-tr"
+                 v-for="(tds,index1) in items"
+                 v-bind:tds="tds"
+                 v-bind:index1=index1
+                 ></div>
+        </div>
+        <!--        <div id="draggable" class="ui-widget ui-widget-content">
+        
+                    <table border="1" width="3" data-chunk-x="1" data-chunk-y="2">
+                        <tr data-block-y="0">
+                            <td data-block-x="0"><img src="../static/image/0.bmp"/></td>
+                            <td data-block-x="1"><img src="../static/image/1.bmp"/></td>
+                            <td data-block-x="2"><img src="../static/image/2.bmp"/></td>
+                            <td data-block-x="3"><img src="../static/image/3.bmp"/></td>
+                        </tr>
+                        <tr data-block-y="1">
+                            <td data-block-x="0"><img src="../static/image/4.bmp"/></td>
+                            <td data-block-x="1"><img src="../static/image/5.bmp"/></td>
+                            <td data-block-x="2"><img src="../static/image/6.bmp"/></td>
+                            <td data-block-x="3"><img src="../static/image/7.bmp"/></td>
+                        </tr>
+                        <tr data-block-y="2">
+                            <td data-block-x="0"><img src="../static/image/8.bmp"/></td>
+                            <td data-block-x="1"><img src="../static/image/blood.bmp"/></td>
+                            <td data-block-x="2"><img src="../static/image/ask.bmp"/></td>
+                            <td data-block-x="3"><img src="../static/image/blank.bmp"/></td>
+                        </tr>
+                    </table>
+                </div>-->
+        <script>
+            Vue.component("mineTd", {
+                template: '\
+                    <td v-bind:data-block-x="index0">\
+                        <img class="gameblockpic" v-bind:src="image"/>\
+                    </td>\
+                ',
+                props: ["image", "index0"]
+
+            });
+            Vue.component("mineTr", {
+                template: '\
+                    <tr v-bind:data-block-y="index1">\
+                        <mine-td\
+                        v-for="(td,index0) in tds"\
+                        v-bind:key="index0"\
+                        v-bind:image="td"\
+                        v-bind:index0=index0\
+                        />\
+                    </tr>\
+                    ',
+                props: ["tds", "index1"]
+            });
+            var vm = new Vue({
+                el: '#example-1',
+                data: {
+                    items: [
+                        ["../static/image/3.bmp",
+                            "../static/image/4.bmp"],
+                        ["../static/image/5.bmp",
+                            "../static/image/6.bmp"]
+                    ]
+                }
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $("#draggable").bind("contextmenu", function (event) {
+                    return false;
+                });
+            });
+            $("img.gameblockpic").mousedown(function (event) {
+                console.log(event);
+                var blockX = $(this).closest("td").data("blockX");
+                var blockY = $(this).closest("tr").data("blockY");
+                var chunkX = $(this).closest("table").data("chunkX");
+                var chunkY = $(this).closest("table").data("chunkY");
+                var mouseClick;
+                if (3 === event.which) {//右键为3
+                    mouseClick;
+                } else if (1 === event.which) {//左键为1
+                    mouseClick;
+                }
+                vm.$data.items = [
+                    ["../static/image/0.bmp",
+                        "../static/image/1.bmp"],
+                    ["../static/image/2.bmp",
+                        "../static/image/3.bmp"]
+                ];
+            });
+        </script>
+    </body>
+</html>
