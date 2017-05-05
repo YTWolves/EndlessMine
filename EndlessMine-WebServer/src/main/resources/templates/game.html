@@ -66,7 +66,7 @@ E-mail: keyto1995@outlook.com
                         },
                         function (data, status) {
                             for (var o in data) {
-                                var pic = new Block(data[o]).blockInfo.getPic();
+                                var pic = getPicByBlock(data[o]);
                                 console.log("Pic:" + pic);
                             }
                             console.log(data);
@@ -81,7 +81,7 @@ E-mail: keyto1995@outlook.com
                         },
                         function (data, status) {
                             for (var o in data) {
-                                var pic = new BlockInfo(data[o]).getPic();
+                                var pic = getPicByBlockInfo(data[o]);
                                 console.log("Pic:" + o + "->" + pic);
                             }
 //                            alert("Data: " + data + "\nStatus: " + status);

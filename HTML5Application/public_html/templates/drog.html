@@ -14,6 +14,7 @@ and open the template in the editor.
 
         <script src="../static/jquery-ui/jquery-ui.js"></script>
         <script src="../static/vue/vue.js"></script>
+        <script src="../static/script/EndlessMineObj.js"></script>
         <style>
             #draggable { width: 150px; height: 150px; padding: 0.5em; }
             /*html { overflow: hidden; }*/
@@ -95,7 +96,12 @@ and open the template in the editor.
                         <img class="gameblockpic" v-bind:src="image"/>\
                     </td>\
                 ',
-                props: ["image", "index0"]
+                props: ["blockInfo", "index0"],
+                computed: {
+                    image: function () {
+                        return getPicByBlockInfo(this.blockInfo);
+                    }
+                }
 
             });
             Vue.component("mineTr", {
@@ -104,7 +110,7 @@ and open the template in the editor.
                         <mine-td\
                         v-for="(td,index0) in tds"\
                         v-bind:key="index0"\
-                        v-bind:image="td"\
+                        v-bind:blockInfo="td"\
                         v-bind:index0=index0\
                         />\
                     </tr>\
@@ -115,10 +121,10 @@ and open the template in the editor.
                 el: '#example-1',
                 data: {
                     items: [
-                        ["../static/image/3.bmp",
-                            "../static/image/4.bmp"],
-                        ["../static/image/5.bmp",
-                            "../static/image/6.bmp"]
+                        [{"searched": true, "bomb": false, "bombCount": 1, "click": "SECONDARY", "userID": 1},
+                            {"searched": true, "bomb": false, "bombCount": 2, "click": "SECONDARY", "userID": 1}],
+                        [{"searched": true, "bomb": false, "bombCount": 3, "click": "SECONDARY", "userID": 1},
+                            {"searched": true, "bomb": true, "bombCount": 4, "click": MouseButton.PRIMARY, "userID": 1}]
                     ]
                 }
             });
@@ -141,13 +147,24 @@ and open the template in the editor.
                 } else if (1 === event.which) {//左键为1
                     mouseClick;
                 }
-                vm.$data.items = [
-                    ["../static/image/0.bmp",
-                        "../static/image/1.bmp"],
-                    ["../static/image/2.bmp",
-                        "../static/image/3.bmp"]
-                ];
+                var blocka = {
+                    "blockPoint": {"chunkPoint": {"x": 1, "y": 2},
+                        "blockIndex": {"x": 1, "y": 0}},
+                    "blockInfo": {"searched": true, "bomb": true, "bombCount": 2, "click": "SECONDARY", "userID": 1}
+                };
+                updateData(blocka);
+
             });
+
+            function updateData(json_block) {
+                var block = new Block(json_block);
+                var chunkX = block.blockPoint.chunkPoint.x;
+                var chunkY = block.blockPoint.chunkPoint.y;
+                var blockX = block.blockPoint.blockIndex.x;
+                var blockY = block.blockPoint.blockIndex.y;
+                var blockInfo = block.blockInfo;
+                vm.items[blockY].splice(blockX, 1, "../static/image/0.bmp");
+            }
         </script>
     </body>
 </html>
