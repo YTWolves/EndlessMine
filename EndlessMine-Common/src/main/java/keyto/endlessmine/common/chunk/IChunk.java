@@ -33,7 +33,7 @@ public interface IChunk {
 
     IBlockInfo getBlockInfo(int index);
 
-    IBlockInfo[] getBlockInfos();
+    IBlockInfo[][] getBlockInfos();
 
     /**
      * @return the chunkPoint

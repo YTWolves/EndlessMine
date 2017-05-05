@@ -25,8 +25,8 @@ import keyto.endlessmine.common.coordinate_system.impl.BlockPoint;
 import keyto.endlessmine.common.coordinate_system.impl.ChunkPoint;
 import keyto.endlessmine.common.mouse.MouseButton;
 import keyto.endlessmine.gameserver.manager.BlockManager;
-import keyto.endlessmine.webserver.massage.MsgGetChunk;
 import keyto.endlessmine.webserver.massage.MsgDoActive;
+import keyto.endlessmine.webserver.massage.MsgGetChunk;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,7 +56,7 @@ public class GameController {
 
     @RequestMapping("/demo_test_show_chunk")
     @ResponseBody
-    IBlockInfo[] demo_test_show_chunk(MsgGetChunk msgGetChunk) {
+    IBlockInfo[][] demo_test_show_chunk(MsgGetChunk msgGetChunk) {
         System.out.println("/game/demo_test_show_chunk");
         ChunkPoint chunkPoint = new ChunkPoint(msgGetChunk.getChunkPointX(), msgGetChunk.getChunkPointY());
 

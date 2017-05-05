@@ -198,7 +198,7 @@ public class BlockManager {
      * @param chunkPoint 区块坐标
      * @return BlockID数组
      */
-    public IBlockInfo[] getEntireBlockInfosOfChunk(IChunkPoint chunkPoint) {
+    public IBlockInfo[][] getEntireBlockInfosOfChunk(IChunkPoint chunkPoint) {
         IChunk ck = CF.getChunk(chunkPoint);
         return ck.getBlockInfos();
     }

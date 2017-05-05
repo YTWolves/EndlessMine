@@ -80,9 +80,11 @@ E-mail: keyto1995@outlook.com
                             chunkPointY: 2
                         },
                         function (data, status) {
-                            for (var o in data) {
-                                var pic = getPicByBlockInfo(data[o]);
-                                console.log("Pic:" + o + "->" + pic);
+                            for (var i in data) {
+                                for (var j in data[i]) {
+                                    var pic = getPicByBlockInfo(data[i][j]);
+                                    console.log("Pic:" + i + "," + j + "->" + pic);
+                                }
                             }
 //                            alert("Data: " + data + "\nStatus: " + status);
                         });

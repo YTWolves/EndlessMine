@@ -23,8 +23,10 @@ import keyto.endlessmine.common.block.IBlockInfo;
 import keyto.endlessmine.common.block.impl.Block;
 import keyto.endlessmine.common.block.impl.BlockInfo;
 import keyto.endlessmine.common.chunk.IChunk;
+import keyto.endlessmine.common.coordinate_system.IBlockIndex;
 import keyto.endlessmine.common.coordinate_system.IBlockPoint;
 import keyto.endlessmine.common.coordinate_system.Specifications;
+import keyto.endlessmine.common.coordinate_system.impl.BlockIndex;
 import keyto.endlessmine.common.coordinate_system.impl.ChunkPoint;
 
 /**
@@ -55,10 +57,11 @@ public class SimpleChunk implements IChunk {
     }
 
     @Override
-    public IBlockInfo[] getBlockInfos() {
-        IBlockInfo[] copy_blockInfos = new IBlockInfo[Specifications.CHUNK_CAPACITY];
+    public IBlockInfo[][] getBlockInfos() {
+        IBlockInfo[][] copy_blockInfos = new IBlockInfo[Specifications.SIDE_LENGTH][Specifications.SIDE_LENGTH];
         for (int i = 0; i < Specifications.CHUNK_CAPACITY; i++) {
-            copy_blockInfos[i] = new BlockInfo(blockIDs[i]);
+            IBlockIndex blockIndex = BlockIndex.valueof(i);
+            copy_blockInfos[blockIndex.getX()][blockIndex.getY()] = new BlockInfo(blockIDs[i]);
         }
         return copy_blockInfos;
     }
