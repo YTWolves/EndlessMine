@@ -6,6 +6,7 @@
         "th:unless": {},
         "th:src": {},
         "th:action": {},
+        "is": {},
         "th:href": {},
         "th:fragment": {},
         "th:content": {
