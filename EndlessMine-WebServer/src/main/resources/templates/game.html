@@ -117,12 +117,6 @@ E-mail: keyto1995@outlook.com
                         },
                         function (data, status) {
                             vm.blockInfos = data;
-//                            for (var i in data) {
-//                                for (var j in data[i]) {
-//                                    var pic = getPicByBlockInfo(data[i][j]);
-//                                    console.log("Pic:" + i + "," + j + "->" + pic);
-//                                }
-//                            }
                         });
             });
 
@@ -157,9 +151,7 @@ E-mail: keyto1995@outlook.com
                             for (var o in data) {
                                 updateData(data[o]);
                                 var pic = getPicByBlock(data[o]);
-                                console.log("Pic:" + pic);
                             }
-                            console.log(data);
                         });
             }
 

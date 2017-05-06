@@ -107,7 +107,7 @@ public class BlockManager {
      * @param usrID
      * @return
      */
-    public List<IBlock> doAction(IBlockPoint blockPoint, MouseButton mouseButton, int usrID) {
+    public List<IBlock> doAction(IBlockPoint blockPoint, MouseButton mouseButton, Long usrID) {
 //        //输出接收数据
 //        System.out.println("doAction:" + blockPoint + "," + mouseButton + "," + usrID);
         //获得八通域
@@ -129,7 +129,7 @@ public class BlockManager {
      * @param usrID       用户ID
      * @return
      */
-    private List<IBlock> assembleBlocks(List<IBlockPoint> ccs, MouseButton mouseButton, int userID) {
+    private List<IBlock> assembleBlocks(List<IBlockPoint> ccs, MouseButton mouseButton, Long userID) {
         List<IBlock> results = new LinkedList<>();
         for (IBlockPoint blockPoint : ccs) {
             //TODO:替换为工厂？

@@ -19,14 +19,17 @@
 package keyto.endlessmine.webserver.controller;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import keyto.endlessmine.common.block.IBlock;
 import keyto.endlessmine.common.block.IBlockInfo;
 import keyto.endlessmine.common.coordinate_system.impl.BlockPoint;
 import keyto.endlessmine.common.coordinate_system.impl.ChunkPoint;
 import keyto.endlessmine.common.mouse.MouseButton;
+import keyto.endlessmine.dbservice.entity.Player;
 import keyto.endlessmine.gameserver.manager.BlockManager;
 import keyto.endlessmine.webserver.massage.MsgDoActive;
 import keyto.endlessmine.webserver.massage.MsgGetChunk;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,15 +46,21 @@ public class GameController {
 
     @RequestMapping("/demo_test_show")
     @ResponseBody
-    List<IBlock> demo_test_show(MsgDoActive msgDoActive) {
+    List<IBlock> demo_test_show(MsgDoActive msgDoActive, HttpServletRequest request) {
         System.out.println("/game/demo_test_show");
-        System.out.println(msgDoActive);
-//        Object attribute = (MsgDoLogin)session.getAttribute("user");
+        Player player = getPlayerFromSecurity(request);
         ChunkPoint chunkPoint = new ChunkPoint(msgDoActive.getChunkPointX(), msgDoActive.getChunkPointY());
         BlockPoint blockPoint = new BlockPoint(chunkPoint, msgDoActive.getBlockX(), msgDoActive.getBlockY());
         MouseButton mouseButton = MouseButton.valueOf(msgDoActive.getMouseButton());
-        List<IBlock> doActionResult = blockManager.doAction(blockPoint, mouseButton, 1);
+        List<IBlock> doActionResult = blockManager.doAction(blockPoint, mouseButton, player.getId());
         return doActionResult;
+    }
+
+    private Player getPlayerFromSecurity(HttpServletRequest request) {
+        SecurityContextImpl securityContextImpl = (SecurityContextImpl) request
+                .getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+        Player player = (Player) securityContextImpl.getAuthentication().getPrincipal();
+        return player;
     }
 
     @RequestMapping("/demo_test_show_chunk")
