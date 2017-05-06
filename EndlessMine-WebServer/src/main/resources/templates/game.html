@@ -32,6 +32,7 @@ E-mail: keyto1995@outlook.com
         <title>gamePage</title>
         <!-- Bootstrap -->
         <link href="../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet"/>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,13 +45,13 @@ E-mail: keyto1995@outlook.com
         <button id="ca">click here</button>
         <div>TODO write content</div>
         <button id="chunk"> get a chunk </button>
-        <div id="example-1">
-            <div is="mine-tr"
-                 v-for="(tds,index1) in items"
-                 v-bind:tds="tds"
-                 v-bind:index1="index1"
-                 ></div>
-        </div>
+        <table id="example-1">
+            <tr is="mine-tr"
+                v-for="(tds,index1) in blockInfos"
+                v-bind:tds="tds"
+                v-bind:index1="index1"
+                ></tr>
+        </table>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -65,13 +66,18 @@ E-mail: keyto1995@outlook.com
             Vue.component("mineTd", {
                 template: '\
                     <td v-bind:data-block-x="index0">\
-                        <img class="gameblockpic" v-bind:src="image"/>\
+                        <img class="gameblockpic" v-bind:src="image" v-on:mousedown="click($event)"/>\
                     </td>\
                 ',
                 props: ["blockInfo", "index0"],
                 computed: {
                     image: function () {
                         return getPicByBlockInfo(this.blockInfo);
+                    }
+                },
+                methods: {
+                    click: function (event) {
+                        doMousedown(event);
                     }
                 }
 
@@ -80,10 +86,11 @@ E-mail: keyto1995@outlook.com
                 template: '\
                     <tr v-bind:data-block-y="index1">\
                         <mine-td \
-                        v-for="(td,index0) in tds"\
-                        v-bind:key="index0"\
-                        v-bind:blockInfo="td"\
-                        v-bind:index0="index0"></mine-td>\
+                            v-for="(td,index0) in tds"\
+                            v-bind:key="index0"\
+                            v-bind:blockInfo="td"\
+                            v-bind:index0="index0"\
+                        />\
                     </tr>\
                     ',
                 props: ["tds", "index1"]
@@ -91,7 +98,7 @@ E-mail: keyto1995@outlook.com
             var vm = new Vue({
                 el: '#example-1',
                 data: {
-                    items: [
+                    blockInfos: [
                         [{"searched": true, "bomb": false, "bombCount": 1, "click": "SECONDARY", "userID": 1},
                             {"searched": true, "bomb": false, "bombCount": 2, "click": "SECONDARY", "userID": 1}],
                         [{"searched": true, "bomb": false, "bombCount": 3, "click": "SECONDARY", "userID": 1},
@@ -102,24 +109,6 @@ E-mail: keyto1995@outlook.com
         </script>
         <script type="text/javascript">
 
-            $("#ca").click(function () {
-                $.post("/game/demo_test_show",
-                        {
-                            chunkPointX: 1,
-                            chunkPointY: 2,
-                            blockX: 3,
-                            blockY: 4,
-                            mouseButton: "PRIMARY"
-                        },
-                        function (data, status) {
-                            for (var o in data) {
-                                var pic = getPicByBlock(data[o]);
-                                console.log("Pic:" + pic);
-                            }
-                            console.log(data);
-                        });
-            });
-
             $("#chunk").click(function () {
                 $.getJSON("/game/demo_test_show_chunk",
                         {
@@ -127,15 +116,62 @@ E-mail: keyto1995@outlook.com
                             chunkPointY: 2
                         },
                         function (data, status) {
-                            for (var i in data) {
-                                for (var j in data[i]) {
-                                    var pic = getPicByBlockInfo(data[i][j]);
-                                    console.log("Pic:" + i + "," + j + "->" + pic);
-                                }
-                            }
-//                            alert("Data: " + data + "\nStatus: " + status);
+                            vm.blockInfos = data;
+//                            for (var i in data) {
+//                                for (var j in data[i]) {
+//                                    var pic = getPicByBlockInfo(data[i][j]);
+//                                    console.log("Pic:" + i + "," + j + "->" + pic);
+//                                }
+//                            }
                         });
             });
+
+            function doMousedown(event) {
+                console.log("doMousedown0");
+                var mouseClick;
+                if (3 === event.which) {//右键为3
+                    mouseClick = MouseButton.SECONDARY;
+                } else if (1 === event.which) {//左键为1
+                    mouseClick = MouseButton.PRIMARY;
+                } else {
+                    return false;
+                }
+                console.log("doMousedown1");
+                var blockX = $(event.target).closest("td").data("blockX");
+                var blockY = $(event.target).closest("tr").data("blockY");
+                var chunkX = $(event.target).closest("table").data("chunkX");
+                var chunkY = $(event.target).closest("table").data("chunkY");
+
+                doAction(chunkX, chunkY, blockX, blockY, mouseClick);
+            }
+            function doAction(chunkX, chunkY, blockX, blockY, mouseClick) {
+                $.post("/game/demo_test_show",
+                        {
+                            "chunkPointX": 1,
+                            "chunkPointY": 2,
+                            "blockX": blockX,
+                            "blockY": blockY,
+                            "mouseButton": mouseClick
+                        },
+                        function (data, status) {
+                            for (var o in data) {
+                                updateData(data[o]);
+                                var pic = getPicByBlock(data[o]);
+                                console.log("Pic:" + pic);
+                            }
+                            console.log(data);
+                        });
+            }
+
+            function updateData(json_block) {
+                var block = new Block(json_block);
+                var chunkX = block.blockPoint.chunkPoint.x;
+                var chunkY = block.blockPoint.chunkPoint.y;
+                var blockX = block.blockPoint.blockIndex.x;
+                var blockY = block.blockPoint.blockIndex.y;
+                var blockInfo = block.blockInfo;
+                vm.blockInfos[blockY].splice(blockX, 1, blockInfo);
+            }
         </script>
     </body>
 </html>

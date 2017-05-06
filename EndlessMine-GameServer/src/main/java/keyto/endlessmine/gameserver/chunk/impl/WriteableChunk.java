@@ -86,7 +86,7 @@ public class WriteableChunk implements IChunk {
         for (int i = 0; i < Specifications.CHUNK_CAPACITY; i++) {
             long tmp = blockSerialize.get(i);
             IBlockIndex blockIndex = BlockIndex.valueof(i);
-            result[blockIndex.getX()][blockIndex.getY()] = new BlockInfo(tmp);
+            result[blockIndex.getY()][blockIndex.getX()] = new BlockInfo(tmp);
         }
         return result;
     }

@@ -61,7 +61,7 @@ public class SimpleChunk implements IChunk {
         IBlockInfo[][] copy_blockInfos = new IBlockInfo[Specifications.SIDE_LENGTH][Specifications.SIDE_LENGTH];
         for (int i = 0; i < Specifications.CHUNK_CAPACITY; i++) {
             IBlockIndex blockIndex = BlockIndex.valueof(i);
-            copy_blockInfos[blockIndex.getX()][blockIndex.getY()] = new BlockInfo(blockIDs[i]);
+            copy_blockInfos[blockIndex.getY()][blockIndex.getX()] = new BlockInfo(blockIDs[i]);
         }
         return copy_blockInfos;
     }

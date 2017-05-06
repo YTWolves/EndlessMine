@@ -20,4 +20,8 @@ E-mail: keyto1995@outlook.com
     Created on : 2017-4-30, 8:43:34
     Author     : Keyto
 */
-
+/*
+    table去除留白
+*/
+table {border:0;margin:0;border-collapse:collapse;border-spacing:0;}
+table td{padding:0;}
