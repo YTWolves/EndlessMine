@@ -45,23 +45,26 @@ E-mail: keyto1995@outlook.com
         <button id="ca">click here</button>
         <div>TODO write content</div>
         <button id="chunk"> get a chunk </button>
-        <table id="example-1">
-            <tr is="mine-tr"
-                v-for="(tds,index1) in blockInfos"
-                v-bind:tds="tds"
-                v-bind:index1="index1"
-                ></tr>
-        </table>
-
+        <div id="draggable">
+            <table id="example-1">
+                <tr is="mine-tr"
+                    v-for="(tds,index1) in blockInfos"
+                    v-bind:tds="tds"
+                    v-bind:index1="index1"
+                    ></tr>
+            </table>
+        </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!--<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
         <script src="../static/script/jquery-3.2.1.min.js" th:src="@{/script/jquery-3.2.1.min.js}"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+        <script src="../static/jquery-ui/jquery-ui.js" th:src="@{/jquery-ui/jquery-ui.min.js}"></script>
+        <script src="../static/vue/vue.js" th:src="@{/vue/vue.min.js}"></script>
         <script src="../static/script/EndlessMineObj.js" th:src="@{/script/EndlessMineObj.js}"></script>
         <script src="../static/script/SecurityAjax.js" th:src="@{/script/SecurityAjax.js}"></script>
-        <script src="../static/vue/vue.js" th:src="@{/vue/vue.min.js}"></script>
+
         <script type="text/javascript">
             Vue.component("mineTd", {
                 template: '\
@@ -108,6 +111,20 @@ E-mail: keyto1995@outlook.com
             });
         </script>
         <script type="text/javascript">
+            $(document).ready(function () {
+                $("#draggable").bind("contextmenu", function (event) {
+                    return false;
+                }).draggable({
+                    distance: 10,
+                    scroll: false,
+                    start: function () {
+                    },
+                    drag: function () {
+                    },
+                    stop: function (event) {
+                    }
+                });
+            });
 
             $("#chunk").click(function () {
                 $.getJSON("/game/demo_test_show_chunk",
@@ -121,7 +138,6 @@ E-mail: keyto1995@outlook.com
             });
 
             function doMousedown(event) {
-                console.log("doMousedown0");
                 var mouseClick;
                 if (3 === event.which) {//右键为3
                     mouseClick = MouseButton.SECONDARY;
@@ -130,7 +146,6 @@ E-mail: keyto1995@outlook.com
                 } else {
                     return false;
                 }
-                console.log("doMousedown1");
                 var blockX = $(event.target).closest("td").data("blockX");
                 var blockY = $(event.target).closest("tr").data("blockY");
                 var chunkX = $(event.target).closest("table").data("chunkX");
