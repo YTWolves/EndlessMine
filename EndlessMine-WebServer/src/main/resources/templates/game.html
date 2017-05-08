@@ -42,53 +42,98 @@ E-mail: keyto1995@outlook.com
         <![endif]-->
     </head>
     <body>
-        <button id="ca">click here</button>
-        <div>TODO write content</div>
-        <button id="chunk"> get a chunk </button>
-        <div id="draggable">
-            <table id="example-1">
-                <tr is="mine-tr"
-                    v-for="(tds,index1) in blockInfos"
-                    v-bind:tds="tds"
-                    v-bind:index1="index1"
-                    ></tr>
-            </table>
-        </div>
+        <div id="example-1">
+            <div style="z-index:10" >
+                x: <input type="text" name="chunkX" value="1" v-model.lazy.trim.number="chunkX"/>
+                y: <input type="text" name="chunkY" value="2" v-model.lazy.trim.number="chunkY"/>
+                <input type="button" value="刷新" />
+            </div>
+            <button id="chunk"> get a chunk {{getChunkPointX0}}</button>
+            <div id="draggable">
 
+                <table>
+                    <tr>
+                        <td><div is="a-chunk"
+                                 v-bind:chunk-point-x="getChunkPointX0"
+                                 v-bind:chunk-point-y="getChunkPointY0"
+                                 ></div></td>
+                        <td><div is="a-chunk"
+                                 v-bind:chunk-point-x="getChunkPointX1"
+                                 v-bind:chunk-point-y="getChunkPointY0"
+                                 ></div></td>
+                        <td><div is="a-chunk"
+                                 v-bind:chunk-point-x="getChunkPointX2"
+                                 v-bind:chunk-point-y="getChunkPointY0"
+                                 ></div></td>
+                    </tr>
+                    <tr>
+                        <td><div is="a-chunk"
+                                 v-bind:chunk-point-x="getChunkPointX0"
+                                 v-bind:chunk-point-y="getChunkPointY1"
+                                 ></div></td>
+                        <td><div is="a-chunk"
+                                 v-bind:chunk-point-x="getChunkPointX1"
+                                 v-bind:chunk-point-y="getChunkPointY1"
+                                 ></div></td>
+                        <td><div is="a-chunk"
+                                 v-bind:chunk-point-x="getChunkPointX2"
+                                 v-bind:chunk-point-y="getChunkPointY1"
+                                 ></div></td>
+                    </tr>
+                    <tr>
+                        <td><div is="a-chunk"
+                                 v-bind:chunk-point-x="getChunkPointX0"
+                                 v-bind:chunk-point-y="getChunkPointY2"
+                                 ></div></td>
+                        <td><div is="a-chunk"
+                                 v-bind:chunk-point-x="getChunkPointX1"
+                                 v-bind:chunk-point-y="getChunkPointY2"
+                                 ></div></td>
+                        <td><div is="a-chunk"
+                                 v-bind:chunk-point-x="getChunkPointX2"
+                                 v-bind:chunk-point-y="getChunkPointY2"
+                                 ></div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!--<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
         <script src="../static/script/jquery-3.2.1.min.js" th:src="@{/script/jquery-3.2.1.min.js}"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
         <script src="../static/jquery-ui/jquery-ui.js" th:src="@{/jquery-ui/jquery-ui.min.js}"></script>
-        <script src="../static/vue/vue.js" th:src="@{/vue/vue.min.js}"></script>
+        <script src="../static/vue/vue.js" th:src="@{/vue/vue.js}"></script>
         <script src="../static/script/EndlessMineObj.js" th:src="@{/script/EndlessMineObj.js}"></script>
         <script src="../static/script/SecurityAjax.js" th:src="@{/script/SecurityAjax.js}"></script>
 
         <script type="text/javascript">
-            Vue.component("mineTd", {
-                template: '\
+// 将在各处使用该事件中心
+// 组件通过它来通信
+var eventHub = new Vue();
+Vue.component("chunkTd", {
+    template: '\
                     <td v-bind:data-block-x="index0">\
                         <img class="gameblockpic" v-bind:src="image" v-on:mousedown="click($event)"/>\
                     </td>\
                 ',
-                props: ["blockInfo", "index0"],
-                computed: {
-                    image: function () {
-                        return getPicByBlockInfo(this.blockInfo);
-                    }
-                },
-                methods: {
-                    click: function (event) {
-                        doMousedown(event);
-                    }
-                }
+    props: ["blockInfo", "index0"],
+    computed: {
+        image: function () {
+            return getPicByBlockInfo(this.blockInfo);
+        }
+    },
+    methods: {
+        click: function (event) {
+            doMousedown(event);
+        }
+    }
 
-            });
-            Vue.component("mineTr", {
-                template: '\
+});
+Vue.component("chunkTr", {
+    template: '\
                     <tr v-bind:data-block-y="index1">\
-                        <mine-td \
+                        <chunk-td \
                             v-for="(td,index0) in tds"\
                             v-bind:key="index0"\
                             v-bind:blockInfo="td"\
@@ -96,19 +141,108 @@ E-mail: keyto1995@outlook.com
                         />\
                     </tr>\
                     ',
-                props: ["tds", "index1"]
+    props: ["tds", "index1"]
+});
+Vue.component("aChunk", {
+    template: '\
+                    <table v-bind:data-chunk-x="chunkPointX" v-bind:data-chunk-y="chunkPointY">\
+                        <tr is="chunk-tr"\
+                            v-for="(tds,index1) in chunk"\
+                            v-bind:tds="tds"\
+                            v-bind:index1="index1"\
+                            ></tr>\
+                    </table>\
+                    ',
+    props: ["chunkPointX", "chunkPointY"],
+    data: function () {
+        return {chunk: ""};
+    },
+    methods: {
+        getChunk: function () {
+            var url = "/game/demo_test_show_chunk";
+            var body = {
+                chunkPointX: this.chunkPointX,
+                chunkPointY: this.chunkPointY
+            };
+            var _self = this;
+            $.getJSON(url, body, function (data) {
+                _self.chunk = data;
             });
-            var vm = new Vue({
-                el: '#example-1',
-                data: {
-                    blockInfos: [
-                        [{"searched": true, "bomb": false, "bombCount": 1, "click": "SECONDARY", "userID": 1},
-                            {"searched": true, "bomb": false, "bombCount": 2, "click": "SECONDARY", "userID": 1}],
-                        [{"searched": true, "bomb": false, "bombCount": 3, "click": "SECONDARY", "userID": 1},
-                            {"searched": true, "bomb": true, "bombCount": 4, "click": MouseButton.PRIMARY, "userID": 1}]
-                    ]
-                }
-            });
+        },
+        updateBlock: function (json_block) {
+            var block = new Block(json_block);
+            var chunkX = block.blockPoint.chunkPoint.x;
+            var chunkY = block.blockPoint.chunkPoint.y;
+            if (chunkX === this.chunkPointX && chunkY === this.chunkPointY) {
+                var blockX = block.blockPoint.blockIndex.x;
+                var blockY = block.blockPoint.blockIndex.y;
+                var blockInfo = block.blockInfo;
+                this.chunk[blockY].splice(blockX, 1, blockInfo);
+            }
+        }
+    },
+    watch: {
+        chunkPointX: function () {
+            this.getChunk();
+        },
+        chunkPointY: function () {
+            this.getChunk();
+        }
+    },
+    mounted: function () {
+        this.getChunk();
+    },
+    created: function () {
+        eventHub.$on('updateBlock', this.updateBlock);
+    },
+// 最好在组件销毁前
+// 清除事件监听
+    beforeDestroy: function () {
+        eventHub.$off('updateBlock', this.updateBlock);
+    }
+//    computed: {
+//        getChunk: function () {
+//            var _self = this;
+//            $.getJSON("/game/demo_test_show_chunk",
+//                    {
+//                        chunkPointX: this.chunkPointX,
+//                        chunkPointY: this.chunkPointY
+//                    },
+//                    function (data, status) {
+//                        _self.chunk = data;
+//                        console.log(data);
+//                    });
+//        }
+//    },
+
+});
+var vm = new Vue({
+    el: '#example-1',
+    data: {
+        chunkX: 1,
+        chunkY: 2
+    },
+    computed: {
+        getChunkPointX0: function () {
+            return this.chunkX - 1;
+        },
+        getChunkPointX1: function () {
+            return this.chunkX;
+        },
+        getChunkPointX2: function () {
+            return this.chunkX + 1;
+        },
+        getChunkPointY0: function () {
+            return this.chunkY - 1;
+        },
+        getChunkPointY1: function () {
+            return this.chunkY;
+        },
+        getChunkPointY2: function () {
+            return this.chunkY + 1;
+        }
+    }
+});
         </script>
         <script type="text/javascript">
             $(document).ready(function () {
@@ -125,18 +259,6 @@ E-mail: keyto1995@outlook.com
                     }
                 });
             });
-
-            $("#chunk").click(function () {
-                $.getJSON("/game/demo_test_show_chunk",
-                        {
-                            chunkPointX: 1,
-                            chunkPointY: 2
-                        },
-                        function (data, status) {
-                            vm.blockInfos = data;
-                        });
-            });
-
             function doMousedown(event) {
                 var mouseClick;
                 if (3 === event.which) {//右键为3
@@ -150,27 +272,25 @@ E-mail: keyto1995@outlook.com
                 var blockY = $(event.target).closest("tr").data("blockY");
                 var chunkX = $(event.target).closest("table").data("chunkX");
                 var chunkY = $(event.target).closest("table").data("chunkY");
-
                 doAction(chunkX, chunkY, blockX, blockY, mouseClick);
             }
             function doAction(chunkX, chunkY, blockX, blockY, mouseClick) {
                 $.post("/game/demo_test_show",
                         {
-                            "chunkPointX": 1,
-                            "chunkPointY": 2,
+                            "chunkPointX": chunkX,
+                            "chunkPointY": chunkY,
                             "blockX": blockX,
                             "blockY": blockY,
                             "mouseButton": mouseClick
                         },
                         function (data, status) {
                             for (var o in data) {
-                                updateData(data[o]);
-                                var pic = getPicByBlock(data[o]);
+                                eventHub.$emit('updateBlock', data[o]);
                             }
                         });
             }
 
-            function updateData(json_block) {
+            function updateBlockInfo(json_block) {
                 var block = new Block(json_block);
                 var chunkX = block.blockPoint.chunkPoint.x;
                 var chunkY = block.blockPoint.chunkPoint.y;

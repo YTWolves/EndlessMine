@@ -66,12 +66,13 @@ and open the template in the editor.
                  v-bind:index1=index1
                  ></div>
         </div>
-        
+
         <script>
             Vue.component("mineTd", {
                 template: '\
                     <td v-bind:data-block-x="index0">\
                         <img class="gameblockpic" v-bind:src="image"/>\
+                        {{items}}\
                     </td>\
                 ',
                 props: ["blockInfo", "index0"],
