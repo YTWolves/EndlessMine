@@ -42,7 +42,7 @@ E-mail: keyto1995@outlook.com
         <![endif]-->
     </head>
     <body>
-        <div id="example-1">
+        <div id="mine-app">
             <div style="z-index:10" >
                 x: <input type="text" name="chunkX" value="1" v-model.lazy.trim.number="chunkX"/>
                 y: <input type="text" name="chunkY" value="2" v-model.lazy.trim.number="chunkY"/>
@@ -200,24 +200,10 @@ Vue.component("aChunk", {
     beforeDestroy: function () {
         eventHub.$off('updateBlock', this.updateBlock);
     }
-//    computed: {
-//        getChunk: function () {
-//            var _self = this;
-//            $.getJSON("/game/demo_test_show_chunk",
-//                    {
-//                        chunkPointX: this.chunkPointX,
-//                        chunkPointY: this.chunkPointY
-//                    },
-//                    function (data, status) {
-//                        _self.chunk = data;
-//                        console.log(data);
-//                    });
-//        }
-//    },
 
 });
 var vm = new Vue({
-    el: '#example-1',
+    el: '#mine-app',
     data: {
         chunkX: 1,
         chunkY: 2
@@ -290,15 +276,6 @@ var vm = new Vue({
                         });
             }
 
-            function updateBlockInfo(json_block) {
-                var block = new Block(json_block);
-                var chunkX = block.blockPoint.chunkPoint.x;
-                var chunkY = block.blockPoint.chunkPoint.y;
-                var blockX = block.blockPoint.blockIndex.x;
-                var blockY = block.blockPoint.blockIndex.y;
-                var blockInfo = block.blockInfo;
-                vm.blockInfos[blockY].splice(blockX, 1, blockInfo);
-            }
         </script>
     </body>
 </html>
