@@ -43,12 +43,11 @@ E-mail: keyto1995@outlook.com
     </head>
     <body>
         <div id="mine-app">
-            <div style="z-index:10" >
+            <div style="position:absolute;z-index:10" >
                 x: <input type="text" name="chunkX" value="1" v-model.lazy.trim.number="chunkX"/>
                 y: <input type="text" name="chunkY" value="2" v-model.lazy.trim.number="chunkY"/>
-                <input type="button" value="刷新" />
+                <input type="button" value="刷新" v-on:click="reloadChunks"/>
             </div>
-            <button id="chunk"> get a chunk {{getChunkPointX0}}</button>
             <div id="draggable">
 
                 <table>
@@ -108,30 +107,29 @@ E-mail: keyto1995@outlook.com
         <script src="../static/script/SecurityAjax.js" th:src="@{/script/SecurityAjax.js}"></script>
 
         <script type="text/javascript">
-// 将在各处使用该事件中心
-// 组件通过它来通信
-var eventHub = new Vue();
-Vue.component("chunkTd", {
-    template: '\
+            // 将在各处使用该事件中心
+            // 组件通过它来通信
+            var eventHub = new Vue();
+            Vue.component("chunkTd", {
+                template: '\
                     <td v-bind:data-block-x="index0">\
                         <img class="gameblockpic" v-bind:src="image" v-on:mousedown="click($event)"/>\
                     </td>\
                 ',
-    props: ["blockInfo", "index0"],
-    computed: {
-        image: function () {
-            return getPicByBlockInfo(this.blockInfo);
-        }
-    },
-    methods: {
-        click: function (event) {
-            doMousedown(event);
-        }
-    }
-
-});
-Vue.component("chunkTr", {
-    template: '\
+                props: ["blockInfo", "index0"],
+                computed: {
+                    image: function () {
+                        return getPicByBlockInfo(this.blockInfo);
+                    }
+                },
+                methods: {
+                    click: function (event) {
+                        doMousedown(event);
+                    }
+                }
+            });
+            Vue.component("chunkTr", {
+                template: '\
                     <tr v-bind:data-block-y="index1">\
                         <chunk-td \
                             v-for="(td,index0) in tds"\
@@ -141,10 +139,10 @@ Vue.component("chunkTr", {
                         />\
                     </tr>\
                     ',
-    props: ["tds", "index1"]
-});
-Vue.component("aChunk", {
-    template: '\
+                props: ["tds", "index1"]
+            });
+            Vue.component("aChunk", {
+                template: '\
                     <table v-bind:data-chunk-x="chunkPointX" v-bind:data-chunk-y="chunkPointY">\
                         <tr is="chunk-tr"\
                             v-for="(tds,index1) in chunk"\
@@ -153,97 +151,89 @@ Vue.component("aChunk", {
                             ></tr>\
                     </table>\
                     ',
-    props: ["chunkPointX", "chunkPointY"],
-    data: function () {
-        return {chunk: ""};
-    },
-    methods: {
-        getChunk: function () {
-            var url = "/game/demo_test_show_chunk";
-            var body = {
-                chunkPointX: this.chunkPointX,
-                chunkPointY: this.chunkPointY
-            };
-            var _self = this;
-            $.getJSON(url, body, function (data) {
-                _self.chunk = data;
-            });
-        },
-        updateBlock: function (json_block) {
-            var block = new Block(json_block);
-            var chunkX = block.blockPoint.chunkPoint.x;
-            var chunkY = block.blockPoint.chunkPoint.y;
-            if (chunkX === this.chunkPointX && chunkY === this.chunkPointY) {
-                var blockX = block.blockPoint.blockIndex.x;
-                var blockY = block.blockPoint.blockIndex.y;
-                var blockInfo = block.blockInfo;
-                this.chunk[blockY].splice(blockX, 1, blockInfo);
-            }
-        }
-    },
-    watch: {
-        chunkPointX: function () {
-            this.getChunk();
-        },
-        chunkPointY: function () {
-            this.getChunk();
-        }
-    },
-    mounted: function () {
-        this.getChunk();
-    },
-    created: function () {
-        eventHub.$on('updateBlock', this.updateBlock);
-    },
-// 最好在组件销毁前
-// 清除事件监听
-    beforeDestroy: function () {
-        eventHub.$off('updateBlock', this.updateBlock);
-    }
-
-});
-var vm = new Vue({
-    el: '#mine-app',
-    data: {
-        chunkX: 1,
-        chunkY: 2
-    },
-    computed: {
-        getChunkPointX0: function () {
-            return this.chunkX - 1;
-        },
-        getChunkPointX1: function () {
-            return this.chunkX;
-        },
-        getChunkPointX2: function () {
-            return this.chunkX + 1;
-        },
-        getChunkPointY0: function () {
-            return this.chunkY - 1;
-        },
-        getChunkPointY1: function () {
-            return this.chunkY;
-        },
-        getChunkPointY2: function () {
-            return this.chunkY + 1;
-        }
-    }
-});
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#draggable").bind("contextmenu", function (event) {
-                    return false;
-                }).draggable({
-                    distance: 10,
-                    scroll: false,
-                    start: function () {
+                props: ["chunkPointX", "chunkPointY"],
+                data: function () {
+                    return {chunk: ""};
+                },
+                methods: {
+                    getChunk: function () {
+                        var url = "/game/demo_test_show_chunk";
+                        var body = {
+                            chunkPointX: this.chunkPointX,
+                            chunkPointY: this.chunkPointY
+                        };
+                        var _self = this;
+                        $.getJSON(url, body, function (data) {
+                            _self.chunk = data;
+                        });
                     },
-                    drag: function () {
-                    },
-                    stop: function (event) {
+                    updateBlock: function (json_block) {
+                        var block = new Block(json_block);
+                        var chunkX = block.blockPoint.chunkPoint.x;
+                        var chunkY = block.blockPoint.chunkPoint.y;
+                        if (chunkX === this.chunkPointX && chunkY === this.chunkPointY) {
+                            var blockX = block.blockPoint.blockIndex.x;
+                            var blockY = block.blockPoint.blockIndex.y;
+                            var blockInfo = block.blockInfo;
+                            this.chunk[blockY].splice(blockX, 1, blockInfo);
+                        }
                     }
-                });
+                },
+                watch: {
+                    chunkPointX: function () {
+                        this.getChunk();
+                    },
+                    chunkPointY: function () {
+                        this.getChunk();
+                    }
+                },
+                mounted: function () {
+                    this.getChunk();
+                },
+                created: function () {
+                    eventHub.$on('updateBlock', this.updateBlock);
+                    eventHub.$on('reloadChunk', this.getChunk);
+
+                },
+                // 最好在组件销毁前
+                // 清除事件监听
+                beforeDestroy: function () {
+                    eventHub.$off('updateBlock', this.updateBlock);
+                    eventHub.$off('reloadChunk', this.getChunk);
+                }
+
+            });
+            var vm = new Vue({
+                el: '#mine-app',
+                data: {
+                    chunkX: 1,
+                    chunkY: 2
+                },
+                methods: {
+                    reloadChunks: function () {
+                        eventHub.$emit('reloadChunk');
+                    }
+                },
+                computed: {
+                    getChunkPointX0: function () {
+                        return this.chunkX - 1;
+                    },
+                    getChunkPointX1: function () {
+                        return this.chunkX;
+                    },
+                    getChunkPointX2: function () {
+                        return this.chunkX + 1;
+                    },
+                    getChunkPointY0: function () {
+                        return this.chunkY - 1;
+                    },
+                    getChunkPointY1: function () {
+                        return this.chunkY;
+                    },
+                    getChunkPointY2: function () {
+                        return this.chunkY + 1;
+                    }
+                }
             });
             function doMousedown(event) {
                 var mouseClick;
@@ -275,6 +265,25 @@ var vm = new Vue({
                             }
                         });
             }
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#draggable")
+                        .bind("contextmenu", function (event) {
+                            return false;
+                        })
+                        .css({"z - index": "3"})
+                        .draggable({
+                            distance: 10,
+                            scroll: false,
+                            start: function () {
+                            },
+                            drag: function () {
+                            },
+                            stop: function (event) {
+                            }
+                        });
+            });
 
         </script>
     </body>

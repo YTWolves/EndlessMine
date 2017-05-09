@@ -8,6 +8,7 @@
         "th:fragment": {},
         "v-model": {},
         "th:if": {},
+        "v-on:click": {},
         "th:unless": {},
         "th:src": {},
         "th:href": {},
