@@ -1,16 +1,21 @@
 {
     "elements": {},
     "attributes": {
-        "th:if": {},
         "th:text": {},
+        "v-model.lazy": {},
+        "th:action": {},
+        "is": {},
+        "th:fragment": {},
+        "v-model": {},
+        "th:if": {},
+        "v-on:click": {},
         "th:unless": {},
         "th:src": {},
-        "th:action": {},
         "th:href": {},
-        "th:fragment": {},
         "th:content": {
             "context": "meta"
         },
+        "v-model.lazy.trim.number": {},
         "th:value": {}
     }
 }

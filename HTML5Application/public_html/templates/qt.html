@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Vue 测试实例-组件嵌套二种方式</title>
+        <script src="//cdn.bootcss.com/vue/2.1.10/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <Itemlist2 :itemlist="items2"></Itemlist2>
+        </div>
+        <script>
+            Vue.component("mineTd", {
+                template: '\
+                    <td v-bind:data-block-x="index">\
+                        <img class="gameblockpic" v-bind:src="image"/>\
+                    </td>\
+                ',
+                props: ["image", "index"]
+
+            });
+
+            Vue.component('Item', {
+                template: '<div>{{data.name}}</div>',
+                props: {
+                    data: Object
+                }
+
+            });
+
+
+            // 方式二：
+            Vue.component("Itemlist2", {
+                template: '<div @click="ok"><Item v-for="item in itemlist" :data="item"/></div>',
+                props: {
+                    itemlist: Array
+                },
+                methods: {
+                    ok: function () {
+                        alert(this.abc);
+                    }
+                }
+            });
+
+            // 创建根实例
+            var vueApp = new Vue({
+                el: '#app',
+                data: {
+                    items2: [{
+                            'name': "item1-1"
+                        }, {
+                            'name': "item2-1"
+                        }, {
+                            'name': "item3-1"
+                        }]
+                }
+            });
+        </script>
+    </body>
+
+</html>

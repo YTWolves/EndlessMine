@@ -26,9 +26,11 @@ import keyto.endlessmine.common.block.IBlockInfo;
 import keyto.endlessmine.common.block.impl.Block;
 import keyto.endlessmine.common.block.impl.BlockInfo;
 import keyto.endlessmine.common.chunk.IChunk;
+import keyto.endlessmine.common.coordinate_system.IBlockIndex;
 import keyto.endlessmine.common.coordinate_system.IBlockPoint;
 import keyto.endlessmine.common.coordinate_system.IChunkPoint;
 import keyto.endlessmine.common.coordinate_system.Specifications;
+import keyto.endlessmine.common.coordinate_system.impl.BlockIndex;
 
 /**
  * 可读写区块类
@@ -79,11 +81,12 @@ public class WriteableChunk implements IChunk {
     }
 
     @Override
-    public IBlockInfo[] getBlockInfos() {
-        IBlockInfo[] result = new IBlockInfo[Specifications.CHUNK_CAPACITY];
+    public IBlockInfo[][] getBlockInfos() {
+        IBlockInfo[][] result = new IBlockInfo[Specifications.SIDE_LENGTH][Specifications.SIDE_LENGTH];
         for (int i = 0; i < Specifications.CHUNK_CAPACITY; i++) {
-            long tmp=blockSerialize.get(i);
-            result[i] = new BlockInfo(tmp);
+            long tmp = blockSerialize.get(i);
+            IBlockIndex blockIndex = BlockIndex.valueof(i);
+            result[blockIndex.getY()][blockIndex.getX()] = new BlockInfo(tmp);
         }
         return result;
     }

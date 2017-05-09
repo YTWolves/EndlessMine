@@ -61,6 +61,7 @@ function ChunkPoint(chunkPoint) {
 function BlockIndex(blockIndex) {
     this.x = blockIndex.x;
     this.y = blockIndex.y;
+    this.index = blockIndex.index;
 }
 function BlockPoint(blockPoint) {
     this.chunkPoint = new ChunkPoint(blockPoint.chunkPoint);
@@ -135,3 +136,12 @@ BlockInfo.prototype = {
     }
 };
 
+function getPicByBlockInfo(json_blockInfo) {
+    var blockInfo = new BlockInfo(json_blockInfo);
+    return blockInfo.getPic();
+}
+
+function getPicByBlock(json_block) {
+    var block = new Block(json_block);
+    return block.blockInfo.getPic();
+}
